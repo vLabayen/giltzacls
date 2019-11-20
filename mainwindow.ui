@@ -60,7 +60,7 @@
      </font>
     </property>
     <property name="text">
-     <string>/home/victor/Documentos/images</string>
+     <string>/home/jesus/Documentos/images/</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
