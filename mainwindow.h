@@ -24,14 +24,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    cv::Mat loadedImage;
-    QImage::Format imageFormat;
+    cv::Mat actualFrame;
 
 public slots:
-    void loadImage_onClick(void);
-    void showImage_onClick(void);
-    void flipImage_onClick(void);
-    void toGrayScale_onClick(void);
+    void startVideo_onClick(void);
+    void stopVideo_onClick(void);
+    void saveFrame_onClick(void);
 };
 
 #endif // MAINWINDOW_H

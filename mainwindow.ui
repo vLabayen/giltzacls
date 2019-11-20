@@ -14,24 +14,24 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="loadImage_pushButton">
+   <widget class="QPushButton" name="startVideo_pushButton">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>130</y>
-      <width>151</width>
+      <x>30</x>
+      <y>50</y>
+      <width>171</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Cargar imagen</string>
+     <string>Iniciar video</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="imageInput_lineEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>100</y>
+      <y>450</y>
       <width>221</width>
       <height>25</height>
      </rect>
@@ -49,7 +49,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
+      <y>330</y>
       <width>221</width>
       <height>25</height>
      </rect>
@@ -67,7 +67,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>310</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -80,7 +80,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>430</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -89,50 +89,50 @@
      <string>Imagen</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="showImage_pushButton">
+   <widget class="QPushButton" name="saveFrame_pushButton">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>250</y>
+      <y>490</y>
       <width>151</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Mostrar imagen</string>
+     <string>Guardar imagen</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>170</y>
+      <y>120</y>
       <width>81</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Image info:</string>
+     <string>Video info:</string>
     </property>
    </widget>
    <widget class="QLabel" name="rowsInfo_label">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>190</y>
+      <y>140</y>
       <width>161</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Rows : </string>
+     <string>Rows :</string>
     </property>
    </widget>
    <widget class="QLabel" name="colsInfo_label">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>210</y>
+      <y>160</y>
       <width>161</width>
       <height>17</height>
      </rect>
@@ -141,30 +141,40 @@
      <string>Cols :</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="flipImage_pushButton">
+   <widget class="QLineEdit" name="keyInput_lineEdit">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>320</y>
-      <width>151</width>
+      <x>10</x>
+      <y>390</y>
+      <width>221</width>
       <height>25</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Flip Image</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="toGrayScale_pushButton">
+   <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>360</y>
-      <width>151</width>
+      <x>10</x>
+      <y>370</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tipo de llave</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopVideo_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>171</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>To Gray Scale</string>
+     <string>Parar video</string>
     </property>
    </widget>
    <widget class="QSplitter" name="splitter">

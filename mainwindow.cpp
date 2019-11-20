@@ -7,38 +7,32 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->loadImage_pushButton, SIGNAL(pressed()), this, SLOT(loadImage_onClick()));
-    connect(ui->showImage_pushButton, SIGNAL(pressed()), this, SLOT(showImage_onClick()));
-    connect(ui->flipImage_pushButton, SIGNAL(pressed()), this, SLOT(flipImage_onClick()));
-    connect(ui->toGrayScale_pushButton, SIGNAL(pressed()), this, SLOT(toGrayScale_onClick()));
+    connect(ui->startVideo_pushButton, SIGNAL(pressed()), this, SLOT(startVideo_onClick()));
+    connect(ui->stopVideo_pushButton, SIGNAL(pressed()), this, SLOT(stopVideo_onClick()));
+    connect(ui->saveFrame_pushButton, SIGNAL(pressed()), this, SLOT(saveFrame_onClick()));
 }
 
 MainWindow::~MainWindow()
 {
+    delete actualFrame;
     delete ui;
 }
 
-void MainWindow::loadImage_onClick(){
-    QString imagePath = ui->dirInput_lineEdit->text();
-    QString imageName = ui->imageInput_lineEdit->text();
-    QString imageFile = QString("%1/%2").arg(imagePath, imageName);
-
-    loadedImage = bgr2rgb(cv::imread(imageFile.toStdString()));
-    imageFormat = QImage::Format_RGB888;
-
-    ui->rowsInfo_label->setText(QString("Rows : %1").arg(QString::number(loadedImage.rows)));
-    ui->colsInfo_label->setText(QString("Cols : %1").arg(QString::number(loadedImage.cols)));
+void MainWindow::startVideo_onClick(){
+    //ui->rowsInfo_label->setText(QString("Rows : %1").arg(QString::number()));
+    //ui->colsInfo_label->setText(QString("Cols : %1").arg(QString::number()));
 }
 
-void MainWindow::showImage_onClick(){
-    ui->imageDisplay_label->setPixmap(QPixmap::fromImage(QImage((uchar*) loadedImage.data, loadedImage.cols, loadedImage.rows, loadedImage.step, imageFormat)));
+void MainWindow::stopVideo_onClick(){
+    ui->rowsInfo_label->setText(QString("Rows : "));
+    ui->colsInfo_label->setText(QString("Cols : "));
 }
 
-void MainWindow::flipImage_onClick(){
-    hflip(loadedImage);
-}
-
-void MainWindow::toGrayScale_onClick(){
-    cv::cvtColor(loadedImage, loadedImage, CV_RGB2GRAY);
-    imageFormat = QImage::Format_Grayscale8;
+void MainWindow::saveFrame_onClick(){
+    QString file = QString("%1/%2/%3").arg(
+        ui->dirInput_lineEdit,
+        ui->keyInput_lineEdit,
+        ui->imageInput_lineEdit
+    );
+    cv::imwrite(file.toStdString(), actualFrame);
 }
