@@ -1,4 +1,3 @@
-#include <opencv2/core.hpp>
 #include <helper.h>
 
 cv::Mat bgr2rgb(cv::Mat src){
@@ -34,4 +33,13 @@ cv::Mat hflip(cv::Mat src){
         }
     }
     return src;
+}
+
+bool dir_exists (const char* name) {
+  struct stat buffer;
+  return (stat (name, &buffer) == 0);
+}
+
+bool mkdir(const char* name) {
+    return (mkdir(name, 0755) != -1);
 }

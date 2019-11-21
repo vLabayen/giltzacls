@@ -32,7 +32,7 @@
      <rect>
       <x>10</x>
       <y>450</y>
-      <width>221</width>
+      <width>121</width>
       <height>25</height>
      </rect>
     </property>
@@ -42,7 +42,7 @@
      </font>
     </property>
     <property name="text">
-     <string>gato.png</string>
+     <string>1</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="dirInput_lineEdit">
@@ -189,14 +189,6 @@
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>WebCam Video</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
     <widget class="QLabel" name="imageDisplay_label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -214,6 +206,60 @@
       <bool>true</bool>
      </property>
     </widget>
+   </widget>
+   <widget class="QLineEdit" name="extensionInput_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>450</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>png</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>430</y>
+      <width>71</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Extension</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="error_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>530</y>
+      <width>191</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;Ubuntu&quot;;
+color: rgb(204, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
