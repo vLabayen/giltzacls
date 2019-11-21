@@ -30,10 +30,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    cv::Mat actualFrame;
     QTimer *timer;
     cv::VideoCapture cap;
-
     cv::Mat frame;
     QImage qt_image;
 

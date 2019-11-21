@@ -29,6 +29,8 @@ void MainWindow::startVideo_onClick(){
 }
 
 void MainWindow::stopVideo_onClick(){
+    ui->rowsInfo_label->setText(QString("Rows : "));
+    ui->colsInfo_label->setText(QString("Cols : "));
     disconnect(timer, SIGNAL(timeout()), this, SLOT(update_window()));
     cap.release();
     cv::Mat image = cv::Mat::zeros(frame.size(),CV_8UC3);
@@ -43,6 +45,8 @@ void MainWindow::update_window(){
     qt_image = QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888);
     ui->label->setPixmap(QPixmap::fromImage(qt_image));
     ui->label->resize(ui->label->pixmap()->size());
+    ui->rowsInfo_label->setText(QString("Rows : %1").arg(QString::number(frame.rows)));
+    ui->colsInfo_label->setText(QString("Cols : %1").arg(QString::number(frame.cols)));
 }
 
 
