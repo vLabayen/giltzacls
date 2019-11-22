@@ -37,17 +37,19 @@ class MainWindow : public QMainWindow {
         QTimer *timer;
         cv::VideoCapture cap;
         cv::Mat frame;
-        //QImage qt_image;
+        int autocaptureTimeout;
 
     public slots:
         void startVideo_onClick(void);
         void stopVideo_onClick(void);
         void saveFrame_onClick(void);
         void update_window(void);
-        int listCameras(void);
 
     private slots:
-        void removeError_callback();
+        void autoCaptureShot(void);
+        void captureTimer(void);
+        void listCameras(void);
+        void removeError_callback(void);
 };
 
 #endif // MAINWINDOW_H

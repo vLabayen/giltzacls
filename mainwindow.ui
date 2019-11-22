@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>50</y>
+      <y>100</y>
       <width>171</width>
       <height>25</height>
      </rect>
@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>450</y>
+      <y>430</y>
       <width>121</width>
       <height>25</height>
      </rect>
@@ -49,7 +49,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
+      <y>310</y>
       <width>221</width>
       <height>25</height>
      </rect>
@@ -60,14 +60,14 @@
      </font>
     </property>
     <property name="text">
-     <string>/home/jesus/Documentos/images/</string>
+     <string>/usr/local/src/images</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>310</y>
+      <y>290</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -80,7 +80,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>430</y>
+      <y>410</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -93,7 +93,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>490</y>
+      <y>470</y>
       <width>151</width>
       <height>25</height>
      </rect>
@@ -106,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>170</y>
       <width>81</width>
       <height>17</height>
      </rect>
@@ -119,33 +119,33 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>140</y>
+      <y>190</y>
       <width>161</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Rows :</string>
+     <string>Filas :</string>
     </property>
    </widget>
    <widget class="QLabel" name="colsInfo_label">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>160</y>
+      <y>210</y>
       <width>161</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Cols :</string>
+     <string>Columnas :</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="keyInput_lineEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>390</y>
+      <y>370</y>
       <width>221</width>
       <height>25</height>
      </rect>
@@ -155,7 +155,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>370</y>
+      <y>350</y>
       <width>101</width>
       <height>17</height>
      </rect>
@@ -168,7 +168,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>80</y>
+      <y>130</y>
       <width>171</width>
       <height>25</height>
      </rect>
@@ -211,7 +211,7 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>450</y>
+      <y>430</y>
       <width>81</width>
       <height>25</height>
      </rect>
@@ -229,7 +229,7 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>430</y>
+      <y>410</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -242,7 +242,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>530</y>
+      <y>500</y>
       <width>191</width>
       <height>17</height>
      </rect>
@@ -256,6 +256,94 @@ color: rgb(204, 0, 0);</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cameraDropdown_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>50</y>
+      <width>171</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Camera</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>221</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Intervalo de captura automatica</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="autocaptureInterval_spinBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>48</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="autocapture_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>630</y>
+      <width>92</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> Enable</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>600</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(s)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="autoCaptureDisplay_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>660</y>
+      <width>211</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
