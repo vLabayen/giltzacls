@@ -44,6 +44,7 @@ class MainWindow : public QMainWindow {
         void stopVideo_onClick(void);
         void saveFrame_onClick(void);
         void update_window(void);
+        int listCameras(void);
 
     private slots:
         void removeError_callback();
