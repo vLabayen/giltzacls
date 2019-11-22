@@ -96,6 +96,21 @@ void MainWindow::saveFrame_onClick(){
     ui->imageInput_lineEdit->setText(QString::number(ui->imageInput_lineEdit->text().toInt() + 1));
 }
 
+int MainWindow::listCameras(){
+    cv::VideoCapture temp_camera;
+    int maxTested = 10;
+    for (int i = 0; i < maxTested; i++){
+      cv::VideoCapture temp_camera(i);
+      bool res = (!temp_camera.isOpened());
+      temp_camera.release();
+      if (res)
+      {
+        return i;
+      }
+    }
+    return maxTested;
+}
+
 void MainWindow::removeError_callback(){
     ui->error_label->setText("");
 }
