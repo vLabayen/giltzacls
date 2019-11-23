@@ -16,9 +16,9 @@
 #include <opencv2/highgui/highgui_c.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs/imgcodecs.hpp>
-#include "opencv2/video.hpp"
+#include <opencv2/video.hpp>
 #include <opencv2/video/video.hpp>
-#include "opencv2/videoio/videoio.hpp"
+#include <opencv2/videoio/videoio.hpp>
 
 
 namespace Ui {
@@ -48,7 +48,6 @@ class MainWindow : public QMainWindow {
     private slots:
         void autoCaptureShot(void);
         void captureTimer(void);
-        void listCameras(void);
         void removeError_callback(void);
 };
 
