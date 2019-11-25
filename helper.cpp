@@ -62,7 +62,7 @@ canSaveImageResult canSaveImage(QLineEdit* dir, QLineEdit* key, QLineEdit* image
     }
 
     result.success = true;
-    result.file = QString("%1/%2_%3.%4").arg(keydir, key->text(), image->text(), extension->text());
+    result.file = QString("%1/JV-%2_%3.%4").arg(keydir, key->text(), image->text(), extension->text());
     return result;
 }
 
