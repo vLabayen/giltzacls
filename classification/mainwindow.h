@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <helper.h>
+#include <capture.h>
+#include <loaddataset.h>
 
 #include <iostream>
 #include <stdexcept>
@@ -25,6 +27,9 @@ namespace Ui {
     class MainWindow;
 }
 
+class Capture;
+class LoadDataset;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -32,14 +37,18 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
-        Ui::MainWindow *ui;
+        Ui::MainWindow* ui;
+        Capture* captureManager;
+        LoadDataset* loadDatasetManager;
+
         cv::Mat imageSelected;
 
-
     public slots:
+        /*
         void loadDataset_onClick(void);
         void selectedClass_onChange(int index);
         void previewImage_onClick(void);
+        */
         void showHSVplanes(void);
         void showHist(void);
         cv::Mat thresholding(void);
