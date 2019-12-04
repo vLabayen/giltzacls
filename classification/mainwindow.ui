@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>-10</y>
       <width>1101</width>
       <height>731</height>
      </rect>
@@ -191,6 +191,105 @@
      <attribute name="title">
       <string>Segmentation</string>
      </attribute>
+     <widget class="QLabel" name="Segmentation_image1">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>10</y>
+        <width>271</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Segmentation_image2">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>300</y>
+        <width>291</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Segmentation_imageBig">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>20</y>
+        <width>411</width>
+        <height>351</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="previewImage_pushButton1">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>650</y>
+        <width>161</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mostrar</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="foundImages_comboBox_1">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>610</y>
+        <width>161</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="foundImages_label_1">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>580</y>
+        <width>211</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Imagenes encontradas :</string>
+      </property>
+     </widget>
+     <zorder>Segmentation_imageBig</zorder>
+     <zorder>Segmentation_image1</zorder>
+     <zorder>Segmentation_image2</zorder>
+     <zorder>previewImage_pushButton1</zorder>
+     <zorder>foundImages_comboBox_1</zorder>
+     <zorder>foundImages_label_1</zorder>
     </widget>
     <widget class="QWidget" name="training">
      <attribute name="title">
