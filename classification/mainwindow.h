@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <helper.h>
+
 #include <iostream>
 #include <stdexcept>
-
-#include <helper.h>
 
 #include <QMainWindow>
 #include <QPixelFormat>
@@ -32,8 +32,8 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
-    private:
         Ui::MainWindow *ui;
+
 
     public slots:
         void loadDataset_onClick(void);

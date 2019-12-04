@@ -20,13 +20,6 @@ int get_dirs(const char* name, QComboBox* cb){
         }
     }
 
-    /*if (foundDirs > 1){
-        QSortFilterProxyModel* proxy = new QSortFilterProxyModel(cb);
-        proxy->setSourceModel(cb->model());
-        cb->model()->setParent(proxy);
-        cb->setModel(proxy);
-        cb->model()->sort(0);
-    }*/
     return foundDirs;
 }
 
@@ -45,12 +38,5 @@ int get_files(const char *name, QComboBox *cb){
         }
     }
 
-    /*if (foundFiles > 1){
-        QSortFilterProxyModel* proxy = new QSortFilterProxyModel(cb);
-        proxy->setSourceModel(cb->model());
-        cb->model()->setParent(proxy);
-        cb->setModel(proxy);
-        cb->model()->sort(0);
-    }*/
     return foundFiles;
 }
