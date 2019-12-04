@@ -3,13 +3,19 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    captureManager(new Capture(this)),
+    loadDatasetManager(new LoadDataset(this))
 {
     ui->setupUi(this);
+    captureManager->setup();
+    loadDatasetManager->setup();
 
-    connect(ui->loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
+    /*connect(ui->loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
     connect(ui->foundClasses_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
     connect(ui->previewImage_pushButton, SIGNAL(pressed()), this, SLOT(previewImage_onClick()));
+    */
+
     connect(ui->previewImage_pushButton1, SIGNAL(pressed()), this, SLOT(show_BoundingBox()));
     /*connect(ui->saveFrame_pushButton, SIGNAL(pressed()), this, SLOT(saveFrame_onClick()));
     connect(ui->autocapture_checkBox, SIGNAL(toggled(bool)), this, SLOT(autoCaptureShot()));
@@ -23,6 +29,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*
 void MainWindow::loadDataset_onClick(){
     QString mainDir = ui->datasetPath_lineEdit->text();
 
@@ -47,6 +54,8 @@ void MainWindow::previewImage_onClick(){
 
     cv::Mat image = cv::imread(selectedImage.toStdString());
     cvtColor(image, image, CV_BGR2RGB);
+
+    //JISUS HACK 1
     imageSelected = image.clone();
 
     QImage qt_image = QImage((const unsigned char*) (image.data), image.cols, image.rows, QImage::Format_RGB888);
@@ -54,9 +63,13 @@ void MainWindow::previewImage_onClick(){
 
     ui->imageInfoRows_label->setText(QString("Filas : %1").arg(QString::number(image.rows)));
     ui->imageInfoCols_label->setText(QString("Columnas : %1").arg(QString::number(image.cols)));
+
+    //JISUS HACK 2
     //cropBoundingBox(findBoundingBox1());
     List_BoundingBox();
 }
+*/
+
 void MainWindow::showHSVplanes(){
        cv::Mat hsvimage;
        cvtColor(imageSelected, hsvimage, CV_RGB2HSV);
