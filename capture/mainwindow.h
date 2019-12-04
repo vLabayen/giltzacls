@@ -1,10 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <helper.h>
+#include <capture.h>
+
 #include <iostream>
 #include <stdexcept>
-
-#include <helper.h>
 
 #include <QMainWindow>
 #include <QPixelFormat>
@@ -25,6 +26,8 @@ namespace Ui {
     class MainWindow;
 }
 
+class Capture;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -32,23 +35,10 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
-    private:
         Ui::MainWindow *ui;
-        QTimer *timer;
-        cv::VideoCapture cap;
-        cv::Mat frame;
-        int autocaptureTimeout;
 
-    public slots:
-        void startVideo_onClick(void);
-        void stopVideo_onClick(void);
-        void saveFrame_onClick(void);
-        void update_window(void);
-
-    private slots:
-        void autoCaptureShot(void);
-        void captureTimer(void);
-        void removeError_callback(void);
+    private:
+        Capture *captureManager;
 };
 
 #endif // MAINWINDOW_H
