@@ -53,7 +53,6 @@ void LoadDataset::previewImage(const int classIndex, const int imageIndex){
                 parent->ui->foundImages_comboBox->itemData(imageIndex).toString()
     );
 
-    cv::Mat image = cv::imread(selectedImagePath.toStdString());
     selectedImage = cv::imread(selectedImagePath.toStdString());
     cvtColor(selectedImage, selectedImage, CV_BGR2RGB);
 
