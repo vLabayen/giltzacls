@@ -28,13 +28,15 @@ SOURCES += \
         mainwindow.cpp \
         helper.cpp \
         capture.cpp \
-    loaddataset.cpp
+    loaddataset.cpp \
+    segmentation.cpp
 
 HEADERS += \
         mainwindow.h \
         helper.h \
         capture.h \
-    loaddataset.h
+    loaddataset.h \
+    segmentation.h
 
 FORMS += \
         mainwindow.ui

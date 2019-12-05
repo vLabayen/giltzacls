@@ -15,6 +15,9 @@ public:
     ~LoadDataset();
 
     void setup(void);
+    void previewImage(int classIndex, int imageIndex);
+
+    cv::Mat selectedImage;
 
 private:
     MainWindow* parent;
@@ -22,7 +25,7 @@ private:
 private slots:
     void loadDataset_onClick(void);
     void selectedClass_onChange(int index);
-    void previewImage_onClick(void);
+    void selectedImage_onChange(int index);
 
 };
 
