@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -395,7 +395,7 @@ color: rgb(204, 0, 0);</string>
      <attribute name="title">
       <string>Load dataset</string>
      </attribute>
-     <widget class="QLineEdit" name="datasetPath_lineEdit">
+     <widget class="QLineEdit" name="loaddataset_datasetPath_lineEdit">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -413,7 +413,7 @@ color: rgb(204, 0, 0);</string>
        <string>/usr/local/src/images</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="loaddataset_datasetPath_label">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -426,7 +426,7 @@ color: rgb(204, 0, 0);</string>
        <string>Directorio del dataset</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="loadDataset_pushButton">
+     <widget class="QPushButton" name="loaddataset_load_pushButton">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -439,7 +439,7 @@ color: rgb(204, 0, 0);</string>
        <string>Cargar dataset</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="foundClasses_comboBox">
+     <widget class="QComboBox" name="loaddataset_foundClasses_comboBox">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -449,7 +449,7 @@ color: rgb(204, 0, 0);</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="foundClasses_label">
+     <widget class="QLabel" name="loaddataset_foundClasses_label">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -462,7 +462,7 @@ color: rgb(204, 0, 0);</string>
        <string>Clases encontradas :</string>
       </property>
      </widget>
-     <widget class="QLabel" name="foundImages_label">
+     <widget class="QLabel" name="loaddataset_foundImages_label">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -475,7 +475,7 @@ color: rgb(204, 0, 0);</string>
        <string>Imágenes encontradas :</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="foundImages_comboBox">
+     <widget class="QComboBox" name="loaddataset_foundImages_comboBox">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -485,7 +485,7 @@ color: rgb(204, 0, 0);</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="imageDisplay_label">
+     <widget class="QLabel" name="loaddataset_imageDisplay_label">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -504,7 +504,7 @@ color: rgb(204, 0, 0);</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_5">
+     <widget class="QLabel" name="loaddataset_imageInfo_label">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -517,7 +517,7 @@ color: rgb(204, 0, 0);</string>
        <string>Información de imágen</string>
       </property>
      </widget>
-     <widget class="QLabel" name="imageInfoRows_label">
+     <widget class="QLabel" name="loaddataset_imageInfoRows_label">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -530,7 +530,7 @@ color: rgb(204, 0, 0);</string>
        <string>Filas : </string>
       </property>
      </widget>
-     <widget class="QLabel" name="imageInfoCols_label">
+     <widget class="QLabel" name="loaddataset_imageInfoCols_label">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -543,7 +543,7 @@ color: rgb(204, 0, 0);</string>
        <string>Columnas :</string>
       </property>
      </widget>
-     <widget class="QLabel" name="loadDataset_loadError_label">
+     <widget class="QLabel" name="loaddataset_loadError_label">
       <property name="geometry">
        <rect>
         <x>20</x>

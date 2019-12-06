@@ -31,8 +31,6 @@ private slots:
     void loadDataset_onClick(void);
     void selectedClass_onChange(int index);
     void selectedImage_onChange(int index);
-
-    void removeError(void);
 };
 
 #endif // LOADDATASET_H
