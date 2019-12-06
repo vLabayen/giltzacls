@@ -9,7 +9,10 @@ bool make_dir(const char* name) {
     return (mkdir(name, 0755) != -1);
 }
 
-void listCameras(int maxTested, QComboBox* dropdown){
+int listCameras(int maxTested, QComboBox* dropdown){
+    dropdown->clear();
+    int foundCameras = 0;
+
     cv::VideoCapture tmp_camera;
     for (int i = 0; i < maxTested; i++){
         bool res = false;
@@ -22,8 +25,12 @@ void listCameras(int maxTested, QComboBox* dropdown){
             continue;
         }
 
-        if (res) dropdown->addItem(QString("Camara %1").arg(QString::number(i)), QVariant(i));
+        if (res) {
+            dropdown->addItem(QString("Camara %1").arg(QString::number(i)), QVariant(i));
+            foundCameras++;
+        }
     }
+    return foundCameras;
 }
 
 canSaveImageResult canSaveImage(QLineEdit* dir, QLineEdit* key, QLineEdit* image, QLineEdit* extension){
