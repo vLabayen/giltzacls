@@ -5,6 +5,9 @@
 #include <capture.h>
 #include <loaddataset.h>
 #include <segmentation.h>
+#include <training.h>
+#include <evaluation.h>
+#include <demo.h>
 
 #include <iostream>
 #include <stdexcept>
@@ -31,6 +34,9 @@ namespace Ui {
 class Capture;
 class LoadDataset;
 class Segmentation;
+class Training;
+class Evaluation;
+class Demo;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -43,6 +49,9 @@ class MainWindow : public QMainWindow {
         Capture* captureManager;
         LoadDataset* loadDatasetManager;
         Segmentation* segmentationManager;
+        Training* trainingManager;
+        Evaluation* evaluationManager;
+        Demo* demoManager;
 
         cv::Mat imageSelected;
 

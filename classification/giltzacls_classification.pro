@@ -24,22 +24,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        helper.cpp \
-        capture.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    helper.cpp \
+    capture.cpp \
     loaddataset.cpp \
-    segmentation.cpp
+    segmentation.cpp \
+    training.cpp \
+    evaluation.cpp \
+    demo.cpp
 
 HEADERS += \
-        mainwindow.h \
-        helper.h \
-        capture.h \
+    mainwindow.h \
+    helper.h \
+    capture.h \
     loaddataset.h \
-    segmentation.h
+    segmentation.h \
+    training.h \
+    evaluation.h \
+    demo.h
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui
 
 INCLUDEPATH += /usr/local/src/opencv/opencv4/
 LIBS += -L/usr/local/src/opencv/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -lopencv_video -lopencv_videoio -lopencv_features2d
