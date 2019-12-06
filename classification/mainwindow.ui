@@ -431,7 +431,7 @@ color: rgb(204, 0, 0);</string>
        </rect>
       </property>
       <property name="text">
-       <string>Imagenes encontradas :</string>
+       <string>Imágenes encontradas :</string>
       </property>
      </widget>
      <widget class="QComboBox" name="foundImages_comboBox">
@@ -473,7 +473,7 @@ color: rgb(204, 0, 0);</string>
        </rect>
       </property>
       <property name="text">
-       <string>Informacion de imagen</string>
+       <string>Información de imágen</string>
       </property>
      </widget>
      <widget class="QLabel" name="imageInfoRows_label">
@@ -500,6 +500,29 @@ color: rgb(204, 0, 0);</string>
       </property>
       <property name="text">
        <string>Columnas :</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="loadDataset_loadError_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>241</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 11pt &quot;Ubuntu&quot;;
+color: rgb(204, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
