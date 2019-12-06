@@ -24,9 +24,9 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="Capture">
+    <widget class="QWidget" name="capture">
      <attribute name="title">
       <string>Capture</string>
      </attribute>
@@ -674,6 +674,11 @@ color: rgb(204, 0, 0);</string>
     <widget class="QWidget" name="evaluation">
      <attribute name="title">
       <string>Evaluation</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="demo">
+     <attribute name="title">
+      <string>Demo</string>
      </attribute>
     </widget>
    </widget>

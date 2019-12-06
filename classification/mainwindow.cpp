@@ -6,12 +6,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     captureManager(new Capture(this)),
     loadDatasetManager(new LoadDataset(this)),
-    segmentationManager(new Segmentation(this))
+    segmentationManager(new Segmentation(this)),
+    trainingManager(new Training(this)),
+    evaluationManager(new Evaluation(this)),
+    demoManager(new Demo(this))
 {
     ui->setupUi(this);
     captureManager->setup();
     loadDatasetManager->setup();
     segmentationManager->setup();
+    trainingManager->setup();
+    evaluationManager->setup();
+    demoManager->setup();
 
     /*connect(ui->loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
     connect(ui->foundClasses_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
