@@ -35,6 +35,7 @@ class MainWindow : public QMainWindow {
     private:
         Ui::MainWindow *ui;
         cv::Mat imageSelected;
+        std::vector<cv::Rect>  boundRect;
 
     public slots:
         void loadDataset_onClick(void);
@@ -49,6 +50,8 @@ class MainWindow : public QMainWindow {
         void cropBoundingBox(std::vector<cv::Rect> boundRect);
         void List_BoundingBox(void);
         void show_BoundingBox(void);
+        cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
+        void RefindBoundingBox(cv::Mat KeySelectedThresholded);
 
     private slots:
 
