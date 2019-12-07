@@ -574,10 +574,10 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_image1">
       <property name="geometry">
        <rect>
-        <x>640</x>
-        <y>10</y>
-        <width>271</width>
-        <height>251</height>
+        <x>570</x>
+        <y>30</y>
+        <width>561</width>
+        <height>351</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -593,10 +593,10 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_image2">
       <property name="geometry">
        <rect>
-        <x>640</x>
-        <y>300</y>
-        <width>291</width>
-        <height>281</height>
+        <x>580</x>
+        <y>510</y>
+        <width>261</width>
+        <height>211</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -612,9 +612,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_imageBig">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>20</y>
-        <width>411</width>
+        <x>0</x>
+        <y>30</y>
+        <width>561</width>
         <height>351</height>
        </rect>
       </property>
@@ -628,7 +628,7 @@ color: rgb(204, 0, 0);</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="previewImage_pushButton1">
+     <widget class="QPushButton" name="Segmentacion_botonSegmentar">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -638,7 +638,7 @@ color: rgb(204, 0, 0);</string>
        </rect>
       </property>
       <property name="text">
-       <string>Mostrar</string>
+       <string>Segmentar</string>
       </property>
      </widget>
      <widget class="QComboBox" name="foundImages_comboBox_1">
@@ -667,7 +667,7 @@ color: rgb(204, 0, 0);</string>
      <zorder>Segmentation_imageBig</zorder>
      <zorder>Segmentation_image1</zorder>
      <zorder>Segmentation_image2</zorder>
-     <zorder>previewImage_pushButton1</zorder>
+     <zorder>Segmentacion_botonSegmentar</zorder>
      <zorder>foundImages_comboBox_1</zorder>
      <zorder>foundImages_label_1</zorder>
     </widget>

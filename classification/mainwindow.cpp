@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->previewImage_pushButton, SIGNAL(pressed()), this, SLOT(previewImage_onClick()));
     */
 
-    connect(ui->previewImage_pushButton1, SIGNAL(pressed()), this, SLOT(show_BoundingBox()));
+    //connect(ui->previewImage_pushButton1, SIGNAL(pressed()), this, SLOT(show_BoundingBox()));
     /*connect(ui->saveFrame_pushButton, SIGNAL(pressed()), this, SLOT(saveFrame_onClick()));
     connect(ui->autocapture_checkBox, SIGNAL(toggled(bool)), this, SLOT(autoCaptureShot()));
     */
