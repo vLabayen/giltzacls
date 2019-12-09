@@ -3,15 +3,30 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    captureManager(new Capture(this)),
+    loadDatasetManager(new LoadDataset(this)),
+    segmentationManager(new Segmentation(this)),
+    trainingManager(new Training(this)),
+    evaluationManager(new Evaluation(this)),
+    demoManager(new Demo(this))
 {
     ui->setupUi(this);
+    captureManager->setup();
+    loadDatasetManager->setup();
+    segmentationManager->setup();
+    trainingManager->setup();
+    evaluationManager->setup();
+    demoManager->setup();
 
+<<<<<<< HEAD
     connect(ui->loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
     connect(ui->foundClasses_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
     connect(ui->previewImage_pushButton, SIGNAL(pressed()), this, SLOT(previewImage_onClick()));
     connect(ui->previewImage_pushButton1, SIGNAL(pressed()), this, SLOT(show_BoundingBox()));
     connect(ui->foundImages_comboBox_1, SIGNAL(currentIndexChanged(int)), this, SLOT(show_BoundingBox()));
+=======
+>>>>>>> master
 
 
 }
@@ -21,6 +36,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+<<<<<<< HEAD
 void MainWindow::loadDataset_onClick(){
     QString mainDir = ui->datasetPath_lineEdit->text();
 
@@ -299,5 +315,7 @@ void MainWindow::RefindBoundingBox(cv::Mat KeySelectedThresholded){
            }
            imshow( "Contours", drawing );
 
+=======
+>>>>>>> master
 
 }

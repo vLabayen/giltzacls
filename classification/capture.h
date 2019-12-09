@@ -26,17 +26,17 @@ private:
 
     int frameRate = 20;
     int tryCameras = 5;
-
+    int errorTimeout = 5000;
 
 private slots:
+    void searchCameras_onClick(void);
     void startVideo_onClick(void);
     void stopVideo_onClick(void);
     void saveFrame_onClick(void);
-    void autocapture_onToggle(void);
+    void autocapture_onToggle(bool active);
 
     void updateFrame(void);
     void autocaptureTimer(int timeout);
-    void removeError(void);
 };
 
 #endif // CAPTURE_H
