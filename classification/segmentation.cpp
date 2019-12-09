@@ -20,7 +20,7 @@ void Segmentation::BotonSegmentarListener(void){
 cv::Mat Segmentation::thresholdingTrimmed(){
     cv::Mat imageThresholded;
     cv::Mat grad_x; cv::Mat grad_y;
-    cvtColor(parent->imageSelected, imageThresholded, CV_BGR2GRAY);
+    cvtColor(parent->loadDatasetManager->selectedImage, imageThresholded, CV_BGR2GRAY);
     cv::Sobel( imageThresholded, grad_x, CV_16S, 1, 0, 3, 1, 0, cv::BORDER_DEFAULT );
     convertScaleAbs( grad_x, grad_x );
     Sobel( imageThresholded, grad_y, CV_16S, 0, 1, 3, 1, 0, cv::BORDER_DEFAULT );
@@ -53,7 +53,7 @@ std::vector<cv::Rect> Segmentation::findBoundingBox1(){
         approxPolyDP( contours[i], contours_poly[i], 3, true );
         boundRect[i] = boundingRect( contours_poly[i] );
     }
-    cv::Mat drawing = parent->imageSelected.clone();
+    cv::Mat drawing = parent->loadDatasetManager->selectedImage.clone();
     for( size_t i = 0; i< contours.size(); i++ ){
         cv::Scalar color = cv::Scalar(255,0,0);
         rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), color, 1 );
@@ -67,7 +67,7 @@ std::vector<cv::Rect> Segmentation::findBoundingBox1(){
 }
 void Segmentation::cropBoundingBox(std::vector<cv::Rect> boundRect ){
     for (int i = 0 ; i < (int)boundRect.size(); i++){
-    imshow(QString("Img: %1").arg(QString::number(i)).toStdString(), parent->imageSelected.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+1).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+1));
+    imshow(QString("Img: %1").arg(QString::number(i)).toStdString(), parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+1).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+1));
     }
 }
 
@@ -80,7 +80,7 @@ void Segmentation::List_BoundingBox(void){
 
 void Segmentation::show_BoundingBox(void){
     int i = parent->ui->foundImages_comboBox_1->currentData().toInt();
-    cv::Mat cropped = parent->imageSelected.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
+    cv::Mat cropped = parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
     QImage qt_cropped = QImage((const unsigned char*) (cropped.data), cropped.cols, cropped.rows, cropped.step, QImage::Format_RGB888);
     QPixmap escaled = QPixmap::fromImage(qt_cropped).scaledToHeight(parent->ui->Segmentation_image2->height(), Qt::SmoothTransformation);
     parent->ui->Segmentation_image2->setPixmap(escaled);

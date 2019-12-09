@@ -53,26 +53,6 @@ class MainWindow : public QMainWindow {
         Evaluation* evaluationManager;
         Demo* demoManager;
 
-        cv::Mat imageSelected;
-
-    public slots:
-        /*
-        void loadDataset_onClick(void);
-        void selectedClass_onChange(int index);
-        void previewImage_onClick(void);
-        */
-        void showHSVplanes(void);
-        void showHist(void);
-        cv::Mat thresholding(void);
-        cv::Mat thresholdingTrimmed(void);
-        void findBoundingBox(void);
-        std::vector<cv::Rect> findBoundingBox1(void);
-        void cropBoundingBox(std::vector<cv::Rect> boundRect);
-        void List_BoundingBox(void);
-        void show_BoundingBox(void);
-
-    private slots:
-
 };
 
 #endif // MAINWINDOW_H

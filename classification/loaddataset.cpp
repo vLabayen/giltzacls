@@ -71,7 +71,6 @@ void LoadDataset::selectedImage_onChange(int index){
 void LoadDataset::previewImage(const int imageIndex){
     //Leemos la imagen seleccionada en formato RGB
     cvtColor(cv::imread(QString("%1/%2").arg(selectedDir, parent->ui->loaddataset_foundImages_comboBox->itemData(imageIndex).toString()).toStdString()), selectedImage, CV_BGR2RGB);
-    parent->imageSelected = selectedImage;
     //Mostramos la imagen en el label
     parent->ui->loaddataset_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (selectedImage.data), selectedImage.cols, selectedImage.rows, QImage::Format_RGB888)));
     //Mostramos la informacion sobre la resolución de la imagen
