@@ -45,30 +45,6 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
-<<<<<<< HEAD
-    private:
-        Ui::MainWindow *ui;
-        cv::Mat imageSelected;
-        std::vector<cv::Rect>  boundRect;
-
-    public slots:
-        void loadDataset_onClick(void);
-        void selectedClass_onChange(int index);
-        void previewImage_onClick(void);
-        void showHSVplanes(void);
-        void showHist(void);
-        cv::Mat thresholding(void);
-        cv::Mat thresholdingTrimmed(void);
-        void findBoundingBox(void);
-        std::vector<cv::Rect> findBoundingBox1(void);
-        void cropBoundingBox(std::vector<cv::Rect> boundRect);
-        void List_BoundingBox(void);
-        void show_BoundingBox(void);
-        cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
-        void RefindBoundingBox(cv::Mat KeySelectedThresholded);
-
-    private slots:
-=======
         Ui::MainWindow* ui;
         Capture* captureManager;
         LoadDataset* loadDatasetManager;
@@ -76,7 +52,6 @@ class MainWindow : public QMainWindow {
         Training* trainingManager;
         Evaluation* evaluationManager;
         Demo* demoManager;
->>>>>>> master
 
 };
 

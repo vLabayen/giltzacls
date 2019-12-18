@@ -574,24 +574,11 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_image1">
       <property name="geometry">
        <rect>
-<<<<<<< HEAD
-        <x>560</x>
-        <y>40</y>
-        <width>501</width>
-        <height>361</height>
-=======
         <x>570</x>
         <y>30</y>
         <width>561</width>
         <height>351</height>
->>>>>>> master
        </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
@@ -606,24 +593,11 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_image2">
       <property name="geometry">
        <rect>
-<<<<<<< HEAD
-        <x>560</x>
-        <y>430</y>
-        <width>491</width>
-        <height>191</height>
-=======
         <x>580</x>
         <y>510</y>
         <width>261</width>
         <height>211</height>
->>>>>>> master
        </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
@@ -638,23 +612,11 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="Segmentation_imageBig">
       <property name="geometry">
        <rect>
-<<<<<<< HEAD
-        <x>30</x>
-        <y>40</y>
-        <width>491</width>
-=======
         <x>0</x>
         <y>30</y>
         <width>561</width>
->>>>>>> master
         <height>351</height>
        </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
