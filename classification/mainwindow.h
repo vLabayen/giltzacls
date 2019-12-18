@@ -5,6 +5,7 @@
 #include <capture.h>
 #include <loaddataset.h>
 #include <segmentation.h>
+#include <featureextraction.h>
 #include <training.h>
 #include <evaluation.h>
 #include <demo.h>
@@ -34,6 +35,7 @@ namespace Ui {
 class Capture;
 class LoadDataset;
 class Segmentation;
+class FeatureExtraction;
 class Training;
 class Evaluation;
 class Demo;
@@ -49,6 +51,7 @@ class MainWindow : public QMainWindow {
         Capture* captureManager;
         LoadDataset* loadDatasetManager;
         Segmentation* segmentationManager;
+        FeatureExtraction* featureExtractionManager;
         Training* trainingManager;
         Evaluation* evaluationManager;
         Demo* demoManager;

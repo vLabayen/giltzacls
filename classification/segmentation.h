@@ -15,6 +15,8 @@ public:
     ~Segmentation();
 
     void setup(void);
+    cv::Mat imageThresholded;
+    cv::Mat cropped;
 
 private:
     MainWindow* parent;
@@ -28,6 +30,7 @@ public slots:
     cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
     void RefindBoundingBox(cv::Mat KeySelectedThresholded);
     void BotonSegmentarListener(void);
+
 };
 
 #endif // SEGMENTATION_H

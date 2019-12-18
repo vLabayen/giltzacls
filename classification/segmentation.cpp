@@ -45,7 +45,11 @@ cv::Mat Segmentation::thresholdingTrimmed(){
 std::vector<cv::Rect> Segmentation::findBoundingBox1(){
     std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
-    cv::Mat imageThresholded = thresholdingTrimmed();
+
+    //VICHACK
+    //cv::Mat imageThresholded = thresholdingTrimmed();
+    imageThresholded = thresholdingTrimmed();
+
     findContours( imageThresholded, contours, hierarchy, CV_RETR_EXTERNAL , CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
     std::vector<std::vector<cv::Point> > contours_poly( contours.size() );
     std::vector<cv::Rect> boundRect( contours.size() );
@@ -80,12 +84,18 @@ void Segmentation::List_BoundingBox(void){
 
 void Segmentation::show_BoundingBox(void){
     int i = parent->ui->foundImages_comboBox_1->currentData().toInt();
-    cv::Mat cropped = parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
-    QImage qt_cropped = QImage((const unsigned char*) (cropped.data), cropped.cols, cropped.rows, cropped.step, QImage::Format_RGB888);
+
+    //VICHACK
+    //cv::Mat cropped = parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
+    //QImage qt_cropped = QImage((const unsigned char*) (cropped.data), cropped.cols, cropped.rows, cropped.step, QImage::Format_RGB888);
+    cropped = imageThresholded.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
+    QImage qt_cropped = QImage((const unsigned char*) (cropped.data), cropped.cols, cropped.rows, cropped.step, QImage::Format_Grayscale8);
+
+
     QPixmap escaled = QPixmap::fromImage(qt_cropped).scaledToHeight(parent->ui->Segmentation_image2->height(), Qt::SmoothTransformation);
     parent->ui->Segmentation_image2->setPixmap(escaled);
     parent->ui->Segmentation_image2->resize(parent->ui->Segmentation_image2->pixmap()->size());
-    cv::Mat KeySelectedThresholded = SecondthresholdingTrimmed(cropped);
+    //cv::Mat KeySelectedThresholded = SecondthresholdingTrimmed(cropped);
     //RefindBoundingBox(KeySelectedThresholded);
 }
 cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
@@ -102,13 +112,13 @@ cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
     cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
     morphologyEx(imageThresholded, imageThresholded, cv::MORPH_CLOSE, ES1);
     //TODO: Repensar el llenado de huecos porque esto de aqui abajo da pena. Buscar un imfill en condiciones.
-    /*cv::Mat imageThresholded1 = imageThresholded.clone();
+    cv::Mat imageThresholded1 = imageThresholded.clone();
     cv::floodFill(imageThresholded1, cv::Point(0,0), cvScalar(255));
     imshow("prueba", imageThresholded1);
     bitwise_not(imageThresholded1, imageThresholded1);
     //imshow("prueba1", imageThresholded1);
     imageThresholded = (imageThresholded1 | imageThresholded);
-    */
+
     /*
     QImage qt_thresholded = QImage((const unsigned char*) (imageThresholded.data), imageThresholded.cols, imageThresholded.rows, imageThresholded.step, QImage::Format_Grayscale8);
     QPixmap escaled = QPixmap::fromImage(qt_thresholded).scaledToWidth(ui->Segmentation_image1->width(), Qt::SmoothTransformation);
@@ -143,7 +153,4 @@ void Segmentation::RefindBoundingBox(cv::Mat KeySelectedThresholded){
                //circle( drawing, centers[i], (int)radius[i], color, 2 );
            }
            imshow( "Contours", drawing );
-
-
 }
-
