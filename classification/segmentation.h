@@ -21,15 +21,21 @@ public:
 private:
     MainWindow* parent;
     std::vector<cv::Rect>  boundRect;
+    std::vector<cv::RotatedRect> rotatedRect;
 public slots:
-    cv::Mat thresholdingTrimmed(void);
-    std::vector<cv::Rect> findBoundingBox1(void);
-    void cropBoundingBox(std::vector<cv::Rect> boundRect);
-    void List_BoundingBox(void);
+    cv::Mat thresholdingTrimmed(cv::Mat);
+    std::vector<cv::Mat> performSegmentation(cv::Mat);
+    std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
+    void List_BoundingBox(std::vector<cv::RotatedRect>);
     void show_BoundingBox(void);
+    cv::Mat show_BoundingBoxOriented(int, std::vector<cv::RotatedRect>);
     cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
-    void RefindBoundingBox(cv::Mat KeySelectedThresholded);
     void BotonSegmentarListener(void);
+
+    void drawBoundingBox(std::vector<cv::RotatedRect>);
+    void drawThresholdedImage(cv::Mat);
+    void drawThresholdedkey(cv::Mat);
+    void onSelectedIndexCrop(int);
 
 };
 
