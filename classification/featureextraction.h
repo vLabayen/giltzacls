@@ -4,6 +4,7 @@
 #include <mainwindow.h>
 #include <ui_mainwindow.h>
 #include <helper.h>
+#include <locale.h>
 
 class MainWindow;
 struct Features {
@@ -35,6 +36,7 @@ private slots:
     void loadDataset_onClick(void);
     void loadSegmentedImage_onClick(void);
     void extractFeatures_onClick(void);
+    void exportCsv_onClick(void);
 };
 
 #endif // FEATUREEXTRACTION_H

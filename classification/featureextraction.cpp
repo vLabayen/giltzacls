@@ -1,12 +1,15 @@
 #include "featureextraction.h"
 
-FeatureExtraction::FeatureExtraction(MainWindow* parent) : parent(parent) {}
+FeatureExtraction::FeatureExtraction(MainWindow* parent) : parent(parent) {
+    setlocale(LC_NUMERIC, "en_US.UTF-8");
+}
 FeatureExtraction::~FeatureExtraction() {}
 
 void FeatureExtraction::setup(){
     connect(parent->ui->featureextraction_loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
     connect(parent->ui->featureextraction_loadSegmentedImage_pushButton, SIGNAL(pressed()), this, SLOT(loadSegmentedImage_onClick()));
     connect(parent->ui->featureextraction_extractFeatures_pushButton, SIGNAL(pressed()), this, SLOT(extractFeatures_onClick()));
+    connect(parent->ui->featureextraction_exportCsv_pushButton, SIGNAL(pressed()), this, SLOT(exportCsv_onClick()));
 }
 
 void FeatureExtraction::loadDataset_onClick(){
@@ -61,6 +64,16 @@ void FeatureExtraction::extractFeatures_onClick(){
     cv::line(testimg, cv::Point(0, f.center.y), cv::Point(segmentedImage.cols - 1, f.center.y), cv::Scalar(0, 255, 0, 0), 1);
     cv::line(testimg, cv::Point(f.center.x, 0), cv::Point(f.center.x, segmentedImage.rows - 1), cv::Scalar(0, 255, 0, 0), 1);
     parent->ui->featureextraction_imageCenterDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (testimg.data), testimg.cols, testimg.rows, testimg.step, QImage::Format_RGB888)));
+}
+
+void FeatureExtraction::exportCsv_onClick(){
+    //TODO : PONER UN ERROR
+    QString exportDir = parent->ui->featureextraction_exportCsv_lineEdit->text();
+    if (!dir_exists(exportDir.toStdString().c_str())) return;
+
+    FILE *fid = fopen(QString("%1/%2").arg(exportDir, "dataset.txt").toStdString().c_str(), "w");
+    fprintf(fid, "%d %.3f\n", 2, 2.5);
+    fclose(fid);
 }
 
 Features FeatureExtraction::extractFeatures(){

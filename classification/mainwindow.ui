@@ -886,6 +886,50 @@ color: rgb(204, 0, 0);</string>
        <string>-  Ancho :</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="featureextraction_exportCsv_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>280</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/datasets</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="featureextraction_exportCsv_label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>260</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Path al fichero</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="featureextraction_exportCsv_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Exportar csv</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="training">
      <attribute name="title">
