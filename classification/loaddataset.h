@@ -27,8 +27,10 @@ private:
 
     int errorTimeout = 5000;
 
-private slots:
+public slots:
     void loadDataset_onClick(void);
+
+private slots:
     void selectedClass_onChange(int index);
     void selectedImage_onChange(int index);
 };

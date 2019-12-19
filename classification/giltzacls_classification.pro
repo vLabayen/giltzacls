@@ -32,7 +32,8 @@ SOURCES += \
     segmentation.cpp \
     training.cpp \
     evaluation.cpp \
-    demo.cpp
+    demo.cpp \
+    featureextraction.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     segmentation.h \
     training.h \
     evaluation.h \
-    demo.h
+    demo.h \
+    featureextraction.h
 
 FORMS += \
     mainwindow.ui

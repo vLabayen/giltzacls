@@ -65,6 +65,7 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
  std::vector<cv::RotatedRect> Segmentation::findBoundingBox1(cv::Mat imageThresholded){
     std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
+
     findContours( imageThresholded, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
     std::vector<cv::RotatedRect> box(contours.size());
 
@@ -194,6 +195,7 @@ cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
     /*
     //TODO: Repensar el llenado de huecos porque esto de aqui abajo da pena. Buscar un imfill en condiciones.
     cv::Mat imageThresholded1 = imageThresholded.clone();
+
     cv::floodFill(imageThresholded1, cv::Point((imageThresholded1.rows)/2,(imageThresholded1.cols)/2), cvScalar(255));
     //imshow("prueba", imageThresholded1);
     bitwise_not(imageThresholded1, imageThresholded1);
@@ -234,4 +236,3 @@ void Segmentation::cropBoundingBox(std::vector<cv::Rect> boundRect ){
     }
 }
 */
-

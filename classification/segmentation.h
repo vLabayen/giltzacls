@@ -15,6 +15,8 @@ public:
     ~Segmentation();
 
     void setup(void);
+    cv::Mat imageThresholded;
+    cv::Mat cropped;
 
 private:
     MainWindow* parent;
@@ -29,6 +31,7 @@ public slots:
     cv::Mat show_BoundingBoxOriented(int, std::vector<cv::RotatedRect>);
     cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
     void BotonSegmentarListener(void);
+
     void drawBoundingBox(std::vector<cv::RotatedRect>);
     void drawThresholdedImage(cv::Mat);
     void drawThresholdedkey(cv::Mat);

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     captureManager(new Capture(this)),
     loadDatasetManager(new LoadDataset(this)),
     segmentationManager(new Segmentation(this)),
+    featureExtractionManager(new FeatureExtraction(this)),
     trainingManager(new Training(this)),
     evaluationManager(new Evaluation(this)),
     demoManager(new Demo(this))
@@ -15,12 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
     captureManager->setup();
     loadDatasetManager->setup();
     segmentationManager->setup();
+    featureExtractionManager->setup();
     trainingManager->setup();
     evaluationManager->setup();
     demoManager->setup();
-
-
-
 }
 
 MainWindow::~MainWindow()
