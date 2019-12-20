@@ -13,37 +13,36 @@ void FeatureExtraction::setup(){
 }
 
 void FeatureExtraction::loadDataset_onClick(){
-    parent->loadDatasetManager->loadDataset_onClick();
-
     //disconnect(parent->ui->featureextraction_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT());
-    parent->ui->featureextraction_class_comboBox->clear();
-    for (int i = 0; i < parent->ui->loaddataset_foundClasses_comboBox->count(); i++){
-        QString name = parent->ui->loaddataset_foundClasses_comboBox->itemText(i);
-        QVariant data = parent->ui->loaddataset_foundClasses_comboBox->itemData(i);
-        parent->ui->featureextraction_class_comboBox->addItem(name, data);
-    }
-    //connect(parent->ui->featureextraction_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT());
-
     //disconnect(parent->ui->featureextraction_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT());
+
+    parent->ui->featureextraction_class_comboBox->clear();
     parent->ui->featureextraction_image_comboBox->clear();
-    for (int i = 0; i < parent->ui->loaddataset_foundImages_comboBox->count(); i++){
-        QString name = parent->ui->loaddataset_foundImages_comboBox->itemText(i);
-        QVariant data = parent->ui->loaddataset_foundImages_comboBox->itemData(i);
-        parent->ui->featureextraction_image_comboBox->addItem(name, data);
-    }
+
+    getClassesResult rc = parent->loadDatasetManager->getClasses(parent->ui->featureextraction_class_comboBox);
+    parent->loadDatasetManager->getImages(rc.dir, parent->ui->featureextraction_class_comboBox->currentData().toString(), parent->ui->featureextraction_image_comboBox);
+
+    mainDir = rc.dir;
+
+    //connect(parent->ui->featureextraction_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT());
     //connect(parent->ui->featureextraction_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT());
 }
 
 void FeatureExtraction::loadSegmentedImage_onClick(){
-    const char* image = QString("%1/%2/%3").arg(
-        parent->loadDatasetManager->mainDir,
+    QString image = QString("%1/%2/%3").arg(
+        mainDir,
         parent->ui->featureextraction_class_comboBox->currentData().toString(),
         parent->ui->featureextraction_image_comboBox->currentData().toString()
-    ).toStdString().c_str();
+    );
 
-    //segmentedImage = TODO HACK
-    segmentedImage = parent->segmentationManager->cropped;
+    cv::Mat rawImage = cv::imread(image.toStdString().c_str());
+    std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage);
 
+    for (int i = 0; i < (int)keys.size(); i++){
+        parent->ui->featureextraction_keys_comboBox->addItem(QString("LLave %1").arg(QString::number(i)));
+    }
+
+    segmentedImage = keys[parent->ui->featureextraction_keys_comboBox->currentIndex()];
     parent->ui->featureextraction_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (segmentedImage.data), segmentedImage.cols, segmentedImage.rows, segmentedImage.step, QImage::Format_Grayscale8)));
 }
 

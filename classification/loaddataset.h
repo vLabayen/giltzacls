@@ -5,8 +5,17 @@
 #include <ui_mainwindow.h>
 #include <helper.h>
 
-class MainWindow;
+struct getClassesResult {
+    bool dirFound;
+    QString dir;
+    int classesFound;
+};
+struct getImagesResult {
+    QString dir;
+    int imagesFound;
+};
 
+class MainWindow;
 class LoadDataset : public QObject {
     Q_OBJECT
 
@@ -15,7 +24,9 @@ public:
     ~LoadDataset();
 
     void setup(void);
-    void previewImage(int imageIndex);
+    getClassesResult getClasses(QComboBox* dst_cb);
+    getImagesResult getImages(QString dir, QString folder, QComboBox* dst_cb);
+    void previewImage(QString dir, int imageIndex);
     void setError(const char* msg);
 
     QString mainDir;
@@ -24,13 +35,10 @@ public:
 
 private:
     MainWindow* parent;
-
     int errorTimeout = 5000;
 
-public slots:
-    void loadDataset_onClick(void);
-
 private slots:
+    void loadDataset_onClick(void);
     void selectedClass_onChange(int index);
     void selectedImage_onChange(int index);
 };
