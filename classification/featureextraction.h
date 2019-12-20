@@ -26,6 +26,7 @@ public:
 private:
     MainWindow* parent;
 
+    QString mainDir;
     cv::Mat segmentedImage;
     cv::Mat extractedFeatures;
 
