@@ -25,9 +25,9 @@ void Segmentation::BotonSegmentarListener(void){
 std::vector<cv::Mat> Segmentation::performSegmentation(cv::Mat srcImage){
     cv::Mat imageThresholded = thresholdingTrimmed(srcImage);
     std::vector<cv::RotatedRect> rr = findBoundingBox1(imageThresholded);
-    std::vector<cv::Mat> allKeysSegmented;
+    std::vector<cv::Mat> allKeysSegmented(rr.size());
     for(int keyIndex = 0; keyIndex < rr.size(); keyIndex++){
-        allKeysSegmented[keyIndex] =SecondthresholdingTrimmed(show_BoundingBoxOriented(keyIndex, rr));
+        allKeysSegmented[keyIndex] =SecondthresholdingTrimmed(show_BoundingBoxOriented(keyIndex, rr, srcImage));
     }
     return allKeysSegmented;
 }
@@ -122,8 +122,7 @@ void Segmentation::List_BoundingBox(std::vector<cv::RotatedRect> box ){
     onSelectedIndexCrop(parent->ui->foundImages_comboBox_1->currentIndex());
 }
 
-cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr){
-    cv::Mat drawing = parent->loadDatasetManager->selectedImage.clone();
+cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr, cv::Mat drawing){
     int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
     int newWidth = diagonal;
     int newHeight =diagonal;
@@ -153,7 +152,7 @@ cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRec
 }
 
 void Segmentation::onSelectedIndexCrop(int i){
-    cv::Mat cropped = show_BoundingBoxOriented(i, rotatedRect);
+    cv::Mat cropped = show_BoundingBoxOriented(i, rotatedRect, parent->loadDatasetManager->selectedImage.clone());
     cv::Mat finalKeySegmented = SecondthresholdingTrimmed(cropped);
     drawThresholdedkey(finalKeySegmented);
 
