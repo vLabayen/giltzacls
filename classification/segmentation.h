@@ -28,7 +28,7 @@ public slots:
     std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
     void List_BoundingBox(std::vector<cv::RotatedRect>);
     void show_BoundingBox(void);
-    cv::Mat show_BoundingBoxOriented(int, std::vector<cv::RotatedRect>);
+    cv::Mat show_BoundingBoxOriented(int, std::vector<cv::RotatedRect>, cv::Mat);
     cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
     void BotonSegmentarListener(void);
 
