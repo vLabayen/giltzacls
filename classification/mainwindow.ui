@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -930,11 +930,94 @@ color: rgb(204, 0, 0);</string>
        <string>Exportar csv</string>
       </property>
      </widget>
+     <widget class="QLabel" name="featureextraction_featureProfile_label">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>580</y>
+        <width>411</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>- Contorno :</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="training">
      <attribute name="title">
       <string>Training</string>
      </attribute>
+     <widget class="QLabel" name="training_dataset_label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dataset csv</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="training_datasetPath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/datasets/dataset.txt</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="training_loadDataset_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>211</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cargar dataset</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="training_trainSVM_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>670</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Entrenar SVM</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="training_saveSVM_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>710</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Guardar SVM</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="evaluation">
      <attribute name="title">

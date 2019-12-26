@@ -6,6 +6,11 @@
 #include <helper.h>
 
 class MainWindow;
+struct Dataset {
+    cv::Mat x;
+    cv::Mat y;
+};
+
 
 class Training : public QObject {
     Q_OBJECT
@@ -18,7 +23,12 @@ public:
 
 private:
     MainWindow* parent;
+    Dataset dataset;
 
+    Dataset loadDataset(QString filepath);
+
+private slots:
+    void loadDataset_onClick(void);
 };
 
 #endif // TRAINING_H
