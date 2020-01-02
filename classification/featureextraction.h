@@ -5,13 +5,16 @@
 #include <ui_mainwindow.h>
 #include <helper.h>
 #include <locale.h>
+#include <algorithm>
+#include <iterator>
 
 class MainWindow;
 struct Features {
-    int height;
     int width;
+    int height;
     int area;
     cv::Point center;
+    std::vector<float> hProfile;
 };
 
 class FeatureExtraction : public QObject{
@@ -22,20 +25,26 @@ public:
     ~FeatureExtraction();
 
     void setup(void);
+    int profileColumns = 20;
+
+    std::vector<float> extractFeatures(cv::Mat src);
 
 private:
     MainWindow* parent;
 
     QString mainDir;
-    cv::Mat segmentedImage;
-    cv::Mat extractedFeatures;
+    std::vector<cv::Mat> segmentedKeys;
+    int currentKeyIndex;
+    //cv::Mat extractedFeatures;
 
-    Features extractFeatures(void);
-    cv::Mat selectFeatures(Features f);
+    //Features extractFeatures(cv::Mat src);
+    //cv::Mat selectFeatures(Features f);
 
 private slots:
     void loadDataset_onClick(void);
+    void selectedClass_onChange(int index);
     void loadSegmentedImage_onClick(void);
+    void selectedKey_onChange(int index);
     void extractFeatures_onClick(void);
     void exportCsv_onClick(void);
 };

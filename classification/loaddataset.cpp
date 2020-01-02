@@ -9,9 +9,9 @@ void LoadDataset::setup(){
     connect(parent->ui->loaddataset_foundImages_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
 }
 
-getClassesResult LoadDataset::getClasses(QComboBox* dst_cb){
+getClassesResult LoadDataset::getClasses(QComboBox* dst_cb, QString mainPath){
     getClassesResult r;
-    r.dir = parent->ui->loaddataset_datasetPath_lineEdit->text();
+    r.dir = mainPath;
 
     if (!dir_exists(r.dir.toStdString().c_str())) {
         r.dirFound = false;
@@ -21,6 +21,10 @@ getClassesResult LoadDataset::getClasses(QComboBox* dst_cb){
     r.dirFound = true;
     r.classesFound = get_dirs(r.dir.toStdString().c_str(), dst_cb);
     return r;
+}
+
+getClassesResult LoadDataset::getClasses(QComboBox* dst_cb){
+    return getClasses(dst_cb, parent->ui->loaddataset_datasetPath_lineEdit->text());
 }
 
 getImagesResult LoadDataset::getImages(QString dir, QString folder, QComboBox* dst_cb){
