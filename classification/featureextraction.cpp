@@ -129,8 +129,13 @@ void FeatureExtraction::exportCsv_onClick(){
             //cv::Mat feat = selectFeatures(f);
             std::vector<float> f = extractFeatures(keys[0]);
 
+            /*
             fprintf(fid, "%s,%.0f,%.0f,%.0f,%.3f,%.3f", cls.toStdString().c_str(), f[0], f[1], f[2], f[3], f[4]);
             for (int c = 0; c < profileColumns; c++) fprintf(fid, ",%.3f", f[5 + c]);
+            */
+            fprintf(fid, "%s", cls.toStdString().c_str());
+            for (int c = 0; c < profileColumns; c++) fprintf(fid, ",%.3f", f[c]);
+
             fprintf(fid, "\n");
         }
     }
@@ -275,8 +280,10 @@ std::vector<float> FeatureExtraction::extractFeatures(cv::Mat src){
     }
 
     //Construimos el vector y lo devolvemos
-    std::vector<float> features(5 + profileColumns);
+    //std::vector<float> features(5 + profileColumns);
+    std::vector<float> features(profileColumns);
 
+    /*
     features[0] = ymax - ymin;          //Altura
     features[1] = xmax - xmin;          //Anchura
     features[2] = area;                 //Area
@@ -285,7 +292,9 @@ std::vector<float> FeatureExtraction::extractFeatures(cv::Mat src){
     float centery = ((float)sumy / (float)count) / src.rows;
     features[3] = (centerx < 0.5) ? (centerx / 0.5) : ((1 - centerx) / 0.5);        //Centro en x
     features[4] = (centery < 0.5) ? (centery / 0.5) : ((1 - centery) / 0.5);        //Centro en y
+    */
 
-    for (int i = 0; i < profileColumns; i++) features[5 + i] = (float)hProfile[i] / (float)colArea;     //Columnas
+    //for (int i = 0; i < profileColumns; i++) features[5 + i] = (float)hProfile[i] / (float)colArea;     //Columnas
+    for (int i = 0; i < profileColumns; i++) features[i] = (float)hProfile[i] / (float)colArea;     //Columnas
     return features;
 }

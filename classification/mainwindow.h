@@ -9,6 +9,7 @@
 #include <training.h>
 #include <evaluation.h>
 #include <demo.h>
+#include <standardscaler.h>
 
 #include <iostream>
 #include <stdexcept>
@@ -26,7 +27,6 @@
 #include <opencv2/video.hpp>
 #include <opencv2/video/video.hpp>
 #include <opencv2/videoio/videoio.hpp>
-
 
 namespace Ui {
     class MainWindow;

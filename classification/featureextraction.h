@@ -27,6 +27,8 @@ public:
     void setup(void);
     int profileColumns = 20;
 
+    std::vector<float> extractFeatures(cv::Mat src);
+
 private:
     MainWindow* parent;
 
@@ -37,8 +39,6 @@ private:
 
     //Features extractFeatures(cv::Mat src);
     //cv::Mat selectFeatures(Features f);
-    std::vector<float> extractFeatures(cv::Mat src);
-
 
 private slots:
     void loadDataset_onClick(void);

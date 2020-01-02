@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -984,7 +984,7 @@ color: rgb(204, 0, 0);</string>
        <rect>
         <x>30</x>
         <y>80</y>
-        <width>211</width>
+        <width>221</width>
         <height>25</height>
        </rect>
       </property>
@@ -996,8 +996,8 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>670</y>
-        <width>201</width>
+        <y>620</y>
+        <width>221</width>
         <height>25</height>
        </rect>
       </property>
@@ -1009,8 +1009,8 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>710</y>
-        <width>201</width>
+        <y>720</y>
+        <width>221</width>
         <height>25</height>
        </rect>
       </property>
@@ -1018,16 +1018,413 @@ color: rgb(204, 0, 0);</string>
        <string>Guardar SVM</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="evaluation">
-     <attribute name="title">
-      <string>Evaluation</string>
-     </attribute>
+     <widget class="QLineEdit" name="training_saveSVMpath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>680</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/models/svm.txt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="training_saveSVMpath_label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>660</y>
+        <width>221</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ruta para guardar el modelo</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="training_standarizeDataset_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>260</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Estandarizar dataset</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="training_saveScalerPath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>320</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/models/sscaler.txt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="training_saveScaler_label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>300</y>
+        <width>211</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ruta para guardar el scaler</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="training_saveScaler_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>360</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Guardar scaler</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="demo">
      <attribute name="title">
       <string>Demo</string>
      </attribute>
+     <widget class="QPushButton" name="demo_searchCameras_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>18</x>
+        <y>20</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar cámaras</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_stopVideo_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Parar video</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_startVideo_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Iniciar video</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="demo_cameraDropdown_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_cameraLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cámara</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_classifyFrame_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>720</y>
+        <width>181</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clasificar frame actual</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="demo_continuousClassification_checkBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>690</y>
+        <width>181</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clasificación continua</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_modelPath_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>560</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ruta al modelo</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="demo_modelPath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>580</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/models/svm.txt</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_loadModel_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>610</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cargar modelo</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_cameraDisplay_label">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>20</y>
+        <width>951</width>
+        <height>701</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_loadDataset_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>260</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cargar dataset</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="demo_class_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>310</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="demo_image_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>360</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_class_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clase :</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_image_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>340</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Imagen :</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_loadImage_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>390</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cargar imagen</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="demo_datastePath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/images</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_datasetPath_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>210</y>
+        <width>151</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Directorio del dataset</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="demo_loadScaler_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>510</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cargar scaler</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="demo_scalerPath_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>480</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/models/sscaler.txt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_scalerPath_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>460</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ruta al scaler</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_predictedKey_label">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>730</y>
+        <width>341</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

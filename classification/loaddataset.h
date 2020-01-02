@@ -24,6 +24,7 @@ public:
     ~LoadDataset();
 
     void setup(void);
+    getClassesResult getClasses(QComboBox* dst_cb, QString mainPath);
     getClassesResult getClasses(QComboBox* dst_cb);
     getImagesResult getImages(QString dir, QString folder, QComboBox* dst_cb);
     void previewImage(QString dir, int imageIndex);
