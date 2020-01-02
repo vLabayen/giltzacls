@@ -42,7 +42,7 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     );
 
     cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage);
+    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage).keys;
 
     disconnect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     parent->ui->featureextraction_keys_comboBox->clear();
@@ -123,7 +123,7 @@ void FeatureExtraction::exportCsv_onClick(){
         for (int j = 0; j < parent->ui->featureextraction_image_comboBox->count(); j++){
             QString image = QString("%1/%2/%3").arg(mainDir, cls, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
             cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage);
+            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage).keys;
 
             //Features f = extractFeatures(keys[0]);
             //cv::Mat feat = selectFeatures(f);

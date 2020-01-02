@@ -1,0 +1,3 @@
+https://github.com/pplonski/keras2cpp
+https://answers.opencv.org/question/172825/keras-tensorflow-opencvdnn/
+

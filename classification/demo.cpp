@@ -43,7 +43,6 @@ void Demo::stopVideo_onClick(){
 
     //Eliminamos el ultimo frame mostrado
     parent->ui->demo_cameraDisplay_label->clear();
-    parent->ui->demo_predictedKey_label->setText("");
 }
 
 void Demo::loadDataset_onClick(){
@@ -78,9 +77,12 @@ void Demo::loadImage_onClick(){
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
 
     if (autoclassifyFrame) {
-        cv::Mat pred = predict(frame);
-        parent->ui->demo_predictedKey_label->setText(QString("LLave %1").arg(QString::number(pred.at<float>(0, 0))));
-    } else parent->ui->demo_predictedKey_label->setText("");
+        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+        cv::Mat pred = predict(frame, psr);
+        for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
+
+        parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (psr.unlabeledImage.data), psr.unlabeledImage.cols, psr.unlabeledImage.rows, QImage::Format_RGB888)));
+    }
 }
 
 void Demo::loadScaler_onClick(){
@@ -105,8 +107,11 @@ void Demo::continuousClassification_onToggle(bool state){
 void Demo::classifyFrame_onClick(){
     if (cap.isOpened()) stopVideo();
 
-    cv::Mat pred = predict(frame);
-    parent->ui->demo_predictedKey_label->setText(QString("LLave %1").arg(QString::number(pred.at<float>(0, 0))));
+    performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+    cv::Mat pred = predict(frame, psr);
+    for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
+
+    parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (psr.unlabeledImage.data), psr.unlabeledImage.cols, psr.unlabeledImage.rows, QImage::Format_RGB888)));
 }
 
 void Demo::stopVideo(){
@@ -115,13 +120,11 @@ void Demo::stopVideo(){
     cap.release();
 }
 
-cv::Mat Demo::predict(cv::Mat img){
-    std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(img);
-
+cv::Mat Demo::predict(cv::Mat img, performSegmentationResponse psr){
     //cv::Mat keysFeatures((int)keys.size(), 5 + parent->featureExtractionManager->profileColumns, CV_32F);
-    cv::Mat keysFeatures((int)keys.size(), parent->featureExtractionManager->profileColumns, CV_32F);
-    for (int i = 0; i < (int)keys.size(); i++){
-        std::vector<float> features = parent->featureExtractionManager->extractFeatures(keys[i]);
+    cv::Mat keysFeatures((int)psr.keys.size(), parent->featureExtractionManager->profileColumns, CV_32F);
+    for (int i = 0; i < (int)psr.keys.size(); i++){
+        std::vector<float> features = parent->featureExtractionManager->extractFeatures(psr.keys[i]);
         for (int j = 0; j < (int)features.size(); j++) keysFeatures.at<float>(i, j) = features[j];
     }
     scaler->transform(keysFeatures);
@@ -137,10 +140,14 @@ void Demo::updateFrame(){
 
     if (autoclassifyFrame){
         disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
-        cv::Mat pred = predict(frame);
-        parent->ui->demo_predictedKey_label->setText(QString("LLave %1").arg(QString::number(pred.at<float>(0, 0))));
+
+        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+        cv::Mat pred = predict(frame, psr);
+        for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
+        frame = psr.unlabeledImage;
+
         connect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
-    } else parent->ui->demo_predictedKey_label->setText("");
+    }
 
     cvtColor(frame, frame, CV_BGR2RGB);
     //Mostramos el frame en el label
