@@ -19,22 +19,26 @@ void Segmentation::BotonSegmentarListener(void){
     //Busqueda Bouding Box
     rotatedRect = findBoundingBox1(imageThresholded);
     //Representación Bounding Box
-    drawBoundingBox(rotatedRect);
+    cv::Mat drawing = drawBoundingBox(rotatedRect, parent->loadDatasetManager->selectedImage.clone());
+    representBoundigBox(drawing);
     //Listado de Fotos detectadas
     List_BoundingBox(rotatedRect);
 }
 
-std::vector<Segmentation::performSegmentationResponse> Segmentation::performSegmentation(cv::Mat srcImage){
+Segmentation::performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
     cv::Mat imageThresholded = thresholdingTrimmed(srcImage);
     std::vector<cv::RotatedRect> rr = findBoundingBox1(imageThresholded);
     std::vector<cv::Mat> allKeysSegmented(rr.size());
-    std::vector<performSegmentationResponse> rPSR(rr.size());
+    std::vector<cv::Point> labelsPoint(rr.size());
+    performSegmentationResponse rPSR;
     cv::Point2f pts[4];
     for(int keyIndex = 0; keyIndex < rr.size(); keyIndex++){
-        //allKeysSegmented[keyIndex] =SecondthresholdingTrimmed(show_BoundingBoxOriented(keyIndex, rr, srcImage));
-        rPSR[keyIndex].key = SecondthresholdingTrimmed(show_BoundingBoxOriented(keyIndex, rr, srcImage));
-        rr[keyIndex].points(pts); rPSR[keyIndex].labelPosition = pts[0];
+        allKeysSegmented[keyIndex] =SecondthresholdingTrimmed(show_BoundingBoxOriented(keyIndex, rr, srcImage));
+        rr[keyIndex].points(pts); labelsPoint[keyIndex] = pts[0];
     }
+    rPSR.keys = allKeysSegmented;
+    rPSR.labelsPosition = labelsPoint;
+    rPSR.unlabeledImage = drawBoundingBox(rr, srcImage);
     return rPSR;
 }
 
@@ -96,10 +100,9 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
     return box;
 }
 
- void Segmentation::drawBoundingBox(std::vector<cv::RotatedRect> box){
+ cv::Mat Segmentation::drawBoundingBox(std::vector<cv::RotatedRect> box, cv::Mat drawing){
      //Dibujar
      cv::Point2f vtx[4];
-     cv::Mat drawing = parent->loadDatasetManager->selectedImage.clone();
      for( size_t i = 0; i< box.size(); i++ ){
          box[i].points(vtx);
          for( int j = 0; j < 4; j++ ){
@@ -109,12 +112,15 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
         //drawContours( drawing, contours_poly, (int)i, color );
      }
      //cv::putText(drawing, "1", cv::Point(150,150) , CV_FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0,255,0), 2.0);
+     return drawing;
+ }
+
+ void Segmentation::representBoundigBox(cv::Mat drawing){
      QImage qt_bounded = QImage((const unsigned char*) (drawing.data), drawing.cols, drawing.rows, drawing.step, QImage::Format_RGB888);
      QPixmap bounded = QPixmap::fromImage(qt_bounded).scaledToWidth(parent->ui->Segmentation_imageBig->width(), Qt::SmoothTransformation);
      parent->ui->Segmentation_imageBig->setPixmap(bounded);
      parent->ui->Segmentation_imageBig->resize(parent->ui->Segmentation_imageBig->pixmap()->size());
  }
-
 
 
 
