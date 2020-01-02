@@ -25,7 +25,7 @@ void Segmentation::BotonSegmentarListener(void){
     List_BoundingBox(rotatedRect);
 }
 
-Segmentation::performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
+performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
     cv::Mat imageThresholded = thresholdingTrimmed(srcImage);
     std::vector<cv::RotatedRect> rr = findBoundingBox1(imageThresholded);
     std::vector<cv::Mat> allKeysSegmented(rr.size());

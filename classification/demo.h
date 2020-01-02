@@ -13,6 +13,14 @@ using namespace std;
 
 class MainWindow;
 class StandardScaler;
+struct performSegmentationResponse;
+
+/*
+struct predictResponse{
+    performSegmentationResponse* psr;
+    cv::Mat pred;
+};
+*/
 
 class Demo : public QObject {
     Q_OBJECT
@@ -34,10 +42,15 @@ private:
     StandardScaler* scaler;
     Ptr<ml::SVM> SVMmodel;
 
+    //Label display config
+    int fontScale = 1;
+    int thickness = 1;
+
     int tryCameras = 5;
     int frameTime = 20; //ms
 
-    cv::Mat predict(cv::Mat img);
+
+    cv::Mat predict(cv::Mat img, performSegmentationResponse psr);
 
 private slots:
     void searchCameras_onClick(void);

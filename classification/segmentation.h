@@ -6,16 +6,14 @@
 #include <helper.h>
 
 class MainWindow;
-
-class Segmentation : public QObject {
-    Q_OBJECT
-
-
 struct performSegmentationResponse{
       std::vector<cv::Mat> keys;
       cv::Mat unlabeledImage;
       std::vector<cv::Point> labelsPosition;
 };
+
+class Segmentation : public QObject {
+    Q_OBJECT
 
 public:
     Segmentation(MainWindow* parent);
@@ -31,7 +29,7 @@ private:
     std::vector<cv::RotatedRect> rotatedRect;
 public slots:
     cv::Mat thresholdingTrimmed(cv::Mat);
-    Segmentation::performSegmentationResponse performSegmentation(cv::Mat);
+    performSegmentationResponse performSegmentation(cv::Mat);
     std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
     void List_BoundingBox(std::vector<cv::RotatedRect>);
     void show_BoundingBox(void);
