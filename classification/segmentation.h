@@ -10,6 +10,12 @@ class MainWindow;
 class Segmentation : public QObject {
     Q_OBJECT
 
+
+struct performSegmentationResponse{
+      cv::Mat key;
+      cv::Point labelPosition;
+};
+
 public:
     Segmentation(MainWindow* parent);
     ~Segmentation();
@@ -24,7 +30,7 @@ private:
     std::vector<cv::RotatedRect> rotatedRect;
 public slots:
     cv::Mat thresholdingTrimmed(cv::Mat);
-    std::vector<cv::Mat> performSegmentation(cv::Mat);
+    std::vector<Segmentation::performSegmentationResponse> performSegmentation(cv::Mat);
     std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
     void List_BoundingBox(std::vector<cv::RotatedRect>);
     void show_BoundingBox(void);
@@ -36,6 +42,7 @@ public slots:
     void drawThresholdedImage(cv::Mat);
     void drawThresholdedkey(cv::Mat);
     void onSelectedIndexCrop(int);
+    void watershed(cv::Mat);
 
 };
 
