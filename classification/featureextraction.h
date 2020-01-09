@@ -25,8 +25,12 @@ public:
     ~FeatureExtraction();
 
     void setup(void);
-    int profileColumns = 20;
+    int profileColumns = 10;
+    int otherFeatures = 4;
 
+    std::vector<float> extractFeatures_v1(cv::Mat src);
+    std::vector<float> extractFeatures_v2(cv::Mat src);
+    std::vector<float> extractFeatures_v3(cv::Mat src);
     std::vector<float> extractFeatures(cv::Mat src);
 
 private:
@@ -35,10 +39,6 @@ private:
     QString mainDir;
     std::vector<cv::Mat> segmentedKeys;
     int currentKeyIndex;
-    //cv::Mat extractedFeatures;
-
-    //Features extractFeatures(cv::Mat src);
-    //cv::Mat selectFeatures(Features f);
 
 private slots:
     void loadDataset_onClick(void);
