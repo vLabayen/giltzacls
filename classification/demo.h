@@ -69,6 +69,10 @@ private slots:
 
     void stopVideo(void);
     void updateFrame(void);
+
+    void updateFocus(int valorFocus);
+    void updateBrightness(int valorBrightness);
+    void updateContrast(int valorContrast);
 };
 
 #endif // DEMO_H

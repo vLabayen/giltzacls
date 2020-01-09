@@ -19,6 +19,9 @@ void Demo::setup(){
 
     connect(parent->ui->demo_continuousClassification_checkBox, SIGNAL(toggled(bool)), this, SLOT(continuousClassification_onToggle(bool)));
     connect(parent->ui->demo_classifyFrame_pushButton, SIGNAL(pressed()), this, SLOT(classifyFrame_onClick()));
+    connect(parent->ui->demo_focus, SIGNAL(valueChanged(int)), this, SLOT(updateFocus(int)));
+    connect(parent->ui->demo_brightness, SIGNAL(valueChanged(int)), this, SLOT(updateBrightness(int)));
+    connect(parent->ui->demo_contrast, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 
     frameTimer = new QTimer(this);
 }
@@ -36,6 +39,18 @@ void Demo::startVideo_onClick(){
     //Iniciamos el timer para refrescar la camara
     connect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
     frameTimer->start(frameTime);
+}
+void Demo::updateFocus(int valorFocus){
+    cap.set(cv::CAP_PROP_AUTOFOCUS, 0);
+    cap.set(cv::CAP_PROP_FOCUS, valorFocus);
+}
+
+void Demo::updateBrightness(int valorBrightness){
+    cap.set(cv::CAP_PROP_BRIGHTNESS, valorBrightness);
+}
+
+void Demo::updateContrast(int valorContrast){
+    cap.set(cv::CAP_PROP_CONTRAST, valorContrast);
 }
 
 void Demo::stopVideo_onClick(){

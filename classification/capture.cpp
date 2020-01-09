@@ -9,10 +9,12 @@ void Capture::setup(){
     connect(parent->ui->capture_stopVideo_pushButton, SIGNAL(pressed()), this, SLOT(stopVideo_onClick()));
     connect(parent->ui->capture_saveFrame_pushButton, SIGNAL(pressed()), this, SLOT(saveFrame_onClick()));
     connect(parent->ui->capture_autocapture_checkBox, SIGNAL(toggled(bool)), this, SLOT(autocapture_onToggle(bool)));
+    connect(parent->ui->capture_focus, SIGNAL(valueChanged(int)), this, SLOT(updateFocus(int)));
+    connect(parent->ui->capture_brightness, SIGNAL(valueChanged(int)), this, SLOT(updateBrightness(int)));
+    connect(parent->ui->capture_contrast, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 
     frameTimer = new QTimer(this);
 }
-
 void Capture::searchCameras_onClick(){
     parent->ui->capture_cameraError_label->setText("");
 
@@ -24,8 +26,20 @@ void Capture::searchCameras_onClick(){
         });
     }
 }
+void Capture::updateFocus(int valorFocus){
+    cap.set(cv::CAP_PROP_AUTOFOCUS, 0);
+    cap.set(cv::CAP_PROP_FOCUS, valorFocus);
+}
 
-void Capture::startVideo_onClick(){
+void Capture::updateBrightness(int valorBrighntess){
+    cap.set(cv::CAP_PROP_BRIGHTNESS , valorBrighntess);
+}
+
+void Capture::updateContrast(int valorContrast){
+    cap.set(cv::CAP_PROP_CONTRAST, valorContrast);
+}
+
+void Capture::startVideo_onClick(void){
     //Nos conectamos a la camara
     cap.open(parent->ui->capture_cameraDropdown_comboBox->currentData().toInt());
 
