@@ -56,7 +56,7 @@ Dataset Training::loadDataset(QString filepath){
 
     Dataset d;
     //d.x = cv::Mat(n, 5 + parent->featureExtractionManager->profileColumns, CV_32F);
-    d.x = cv::Mat(n, parent->featureExtractionManager->profileColumns, CV_32F);
+    d.x = cv::Mat(n, parent->featureExtractionManager->otherFeatures + parent->featureExtractionManager->profileColumns, CV_32F);
     d.y = cv::Mat(n, 1, CV_32S);
 
     int i = 0;
@@ -69,12 +69,12 @@ Dataset Training::loadDataset(QString filepath){
             &(d.x.at<float>(i, 15)), &(d.x.at<float>(i, 16)), &(d.x.at<float>(i, 17)), &(d.x.at<float>(i, 18)), &(d.x.at<float>(i, 19)),
             &(d.x.at<float>(i, 20)), &(d.x.at<float>(i, 21)), &(d.x.at<float>(i, 22)), &(d.x.at<float>(i, 23)), &(d.x.at<float>(i, 24))
         );*/
-        sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             &(d.y.at<int>(i, 0)),
             &(d.x.at<float>(i, 0)), &(d.x.at<float>(i, 1)), &(d.x.at<float>(i, 2)), &(d.x.at<float>(i, 3)), &(d.x.at<float>(i, 4)),
             &(d.x.at<float>(i, 5)), &(d.x.at<float>(i, 6)), &(d.x.at<float>(i, 7)), &(d.x.at<float>(i, 8)), &(d.x.at<float>(i, 9)),
-            &(d.x.at<float>(i, 10)), &(d.x.at<float>(i, 11)), &(d.x.at<float>(i, 12)), &(d.x.at<float>(i, 13)), &(d.x.at<float>(i, 14)),
-            &(d.x.at<float>(i, 15)), &(d.x.at<float>(i, 16)), &(d.x.at<float>(i, 17)), &(d.x.at<float>(i, 18)), &(d.x.at<float>(i, 19))
+            &(d.x.at<float>(i, 10)), &(d.x.at<float>(i, 11)), &(d.x.at<float>(i, 12)), &(d.x.at<float>(i, 13))//, &(d.x.at<float>(i, 14)),
+            //&(d.x.at<float>(i, 15)), &(d.x.at<float>(i, 16)), &(d.x.at<float>(i, 17)), &(d.x.at<float>(i, 18)), &(d.x.at<float>(i, 19))
         );
         i++;
     }

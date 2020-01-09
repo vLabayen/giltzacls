@@ -136,8 +136,7 @@ void Demo::stopVideo(){
 }
 
 cv::Mat Demo::predict(cv::Mat img, performSegmentationResponse psr){
-    //cv::Mat keysFeatures((int)keys.size(), 5 + parent->featureExtractionManager->profileColumns, CV_32F);
-    cv::Mat keysFeatures((int)psr.keys.size(), parent->featureExtractionManager->profileColumns, CV_32F);
+    cv::Mat keysFeatures((int)psr.keys.size(), parent->featureExtractionManager->otherFeatures + parent->featureExtractionManager->profileColumns, CV_32F);
     for (int i = 0; i < (int)psr.keys.size(); i++){
         std::vector<float> features = parent->featureExtractionManager->extractFeatures(psr.keys[i]);
         for (int j = 0; j < (int)features.size(); j++) keysFeatures.at<float>(i, j) = features[j];

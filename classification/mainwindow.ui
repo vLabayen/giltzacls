@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+      <number>0</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -812,25 +812,6 @@ color: rgb(204, 0, 0);</string>
        <string>Cargar y segmentar imagen</string>
       </property>
      </widget>
-     <widget class="QLabel" name="featureextraction_imageCenterDisplay_label">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>470</y>
-        <width>641</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QPushButton" name="featureextraction_extractFeatures_pushButton">
       <property name="geometry">
        <rect>
@@ -929,8 +910,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_features_label">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>430</y>
+        <x>730</x>
+        <y>440</y>
         <width>131</width>
         <height>17</height>
        </rect>
@@ -942,8 +923,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_featureCenter_label">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>460</y>
+        <x>780</x>
+        <y>470</y>
         <width>401</width>
         <height>17</height>
        </rect>
@@ -955,8 +936,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_featureArea_label">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>490</y>
+        <x>780</x>
+        <y>500</y>
         <width>411</width>
         <height>17</height>
        </rect>
@@ -968,8 +949,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_featureHeight_label">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>550</y>
+        <x>780</x>
+        <y>560</y>
         <width>411</width>
         <height>17</height>
        </rect>
@@ -981,8 +962,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_featureWidth_label">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>520</y>
+        <x>780</x>
+        <y>530</y>
         <width>391</width>
         <height>17</height>
        </rect>
@@ -1026,7 +1007,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>310</y>
+        <y>360</y>
         <width>231</width>
         <height>25</height>
        </rect>
@@ -1038,14 +1019,64 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="featureextraction_featureProfile_label">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>580</y>
+        <x>780</x>
+        <y>590</y>
         <width>411</width>
         <height>17</height>
        </rect>
       </property>
       <property name="text">
        <string>- Contorno :</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="featureextraction_exportCsvFile_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>330</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>dataset.txt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="featureextraction_exportCsvFile_label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nombre del fichero</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="featureextraction_imageCenterDisplay_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>470</y>
+        <width>701</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
