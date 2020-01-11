@@ -109,6 +109,17 @@ void FeatureExtraction::extractFeatures_onClick(){
     cvtColor(testimg, testimg, CV_GRAY2RGB);
     cv::line(testimg, cv::Point(0, f[4]), cv::Point(segmentedKeys[currentKeyIndex].cols - 1, f[4]), cv::Scalar(0, 255, 0, 0), 1);
     cv::line(testimg, cv::Point(f[3], 0), cv::Point(f[3], segmentedKeys[currentKeyIndex].rows - 1), cv::Scalar(0, 255, 0, 0), 1);
+
+
+    //std::vector<float> feat = extractFeatures_v3(segmentedKeys[currentKeyIndex]);
+    //int colWidth = ((segmentedKeys[currentKeyIndex].cols % profileColumns) == 0) ? (int)(segmentedKeys[currentKeyIndex].cols / profileColumns) : (int)(segmentedKeys[currentKeyIndex].cols / profileColumns) + 1;
+    //printf("colWidth : %d\n", colWidth);
+    //printf("Alto : %d\n", segmentedKeys[currentKeyIndex].rows);
+    //for (int i = 0; i < 10; i++){
+    //    printf("%d : %.3f --> %.3f\n", feat[4 + i] * colWidth * segmentedKeys[currentKeyIndex].rows, feat[4 + i]);
+    //    if (i != 0) cv::line(testimg, cv::Point(colWidth * i, 0), cv::Point(colWidth * i , segmentedKeys[currentKeyIndex].rows - 1), cv::Scalar(0, 255, 0, 0), 1);
+    //}
+
     parent->ui->featureextraction_imageCenterDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (testimg.data), testimg.cols, testimg.rows, testimg.step, QImage::Format_RGB888)));
 }
 

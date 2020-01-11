@@ -35,8 +35,8 @@ void Training::saveScaler_onClick(){
 void Training::trainSVM_onClick(){
     SVMmodel = ml::SVM::create();
     SVMmodel->setType(ml::SVM::Types::C_SVC);
-    SVMmodel->setC(0.7);
-    SVMmodel->setKernel(ml::SVM::KernelTypes::LINEAR);
+    SVMmodel->setC(Cparam);
+    SVMmodel->setKernel(kernelParam);
     SVMmodel->train(dataset.x, ml::ROW_SAMPLE, dataset.y);
 }
 
@@ -48,9 +48,9 @@ void Training::saveSVM_onClick(){
 Dataset Training::loadDataset(QString filepath){
     FILE* fid;
     char buf[1024];
-    int n = 0;
     fid = fopen(filepath.toStdString().c_str(), "r");
 
+    int n = 0;
     while (fgets(buf, 1024, fid)) n++;
     rewind(fid);
 
@@ -61,21 +61,21 @@ Dataset Training::loadDataset(QString filepath){
 
     int i = 0;
     while (fgets(buf, 1024, fid)){
-        /*sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             &(d.y.at<int>(i, 0)),
             &(d.x.at<float>(i, 0)), &(d.x.at<float>(i, 1)), &(d.x.at<float>(i, 2)), &(d.x.at<float>(i, 3)), &(d.x.at<float>(i, 4)),
             &(d.x.at<float>(i, 5)), &(d.x.at<float>(i, 6)), &(d.x.at<float>(i, 7)), &(d.x.at<float>(i, 8)), &(d.x.at<float>(i, 9)),
             &(d.x.at<float>(i, 10)), &(d.x.at<float>(i, 11)), &(d.x.at<float>(i, 12)), &(d.x.at<float>(i, 13)), &(d.x.at<float>(i, 14)),
             &(d.x.at<float>(i, 15)), &(d.x.at<float>(i, 16)), &(d.x.at<float>(i, 17)), &(d.x.at<float>(i, 18)), &(d.x.at<float>(i, 19)),
             &(d.x.at<float>(i, 20)), &(d.x.at<float>(i, 21)), &(d.x.at<float>(i, 22)), &(d.x.at<float>(i, 23)), &(d.x.at<float>(i, 24))
-        );*/
-        sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        );
+        /*sscanf(buf, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             &(d.y.at<int>(i, 0)),
             &(d.x.at<float>(i, 0)), &(d.x.at<float>(i, 1)), &(d.x.at<float>(i, 2)), &(d.x.at<float>(i, 3)), &(d.x.at<float>(i, 4)),
             &(d.x.at<float>(i, 5)), &(d.x.at<float>(i, 6)), &(d.x.at<float>(i, 7)), &(d.x.at<float>(i, 8)), &(d.x.at<float>(i, 9)),
             &(d.x.at<float>(i, 10)), &(d.x.at<float>(i, 11)), &(d.x.at<float>(i, 12)), &(d.x.at<float>(i, 13))//, &(d.x.at<float>(i, 14)),
             //&(d.x.at<float>(i, 15)), &(d.x.at<float>(i, 16)), &(d.x.at<float>(i, 17)), &(d.x.at<float>(i, 18)), &(d.x.at<float>(i, 19))
-        );
+        );*/
         i++;
     }
     fclose(fid);

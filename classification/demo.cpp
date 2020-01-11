@@ -12,6 +12,7 @@ void Demo::setup(){
 
     connect(parent->ui->demo_loadDataset_pushButton, SIGNAL(pressed()), this, SLOT(loadDataset_onClick()));
     connect(parent->ui->demo_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
+    connect(parent->ui->demo_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
     connect(parent->ui->demo_loadImage_pushButton, SIGNAL(pressed()), this, SLOT(loadImage_onClick()));
 
     connect(parent->ui->demo_loadScaler_pushButton, SIGNAL(pressed()), this, SLOT(loadScaler_onClick()));
@@ -62,6 +63,8 @@ void Demo::stopVideo_onClick(){
 
 void Demo::loadDataset_onClick(){
     disconnect(parent->ui->demo_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
+    disconnect(parent->ui->demo_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
+
     parent->ui->demo_class_comboBox->clear();
     parent->ui->demo_image_comboBox->clear();
 
@@ -71,11 +74,22 @@ void Demo::loadDataset_onClick(){
     mainDir = rc.dir;
 
     connect(parent->ui->demo_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
+    connect(parent->ui->demo_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
 }
 
 void Demo::selectedClass_onChange(int index){
+    disconnect(parent->ui->demo_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
+
     parent->ui->demo_image_comboBox->clear();
     parent->loadDatasetManager->getImages(mainDir, parent->ui->demo_class_comboBox->itemData(index).toString(), parent->ui->demo_image_comboBox);
+
+    connect(parent->ui->demo_image_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedImage_onChange(int)));
+}
+
+void Demo::selectedImage_onChange(int index){
+    if (cap.isOpened()) return;
+
+    loadImage_onClick();
 }
 
 void Demo::loadImage_onClick(){
@@ -93,7 +107,7 @@ void Demo::loadImage_onClick(){
 
     if (autoclassifyFrame) {
         performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
-        cv::Mat pred = predict(frame, psr);
+        cv::Mat pred = predict(psr);
         for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
 
         parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (psr.unlabeledImage.data), psr.unlabeledImage.cols, psr.unlabeledImage.rows, QImage::Format_RGB888)));
@@ -123,7 +137,7 @@ void Demo::classifyFrame_onClick(){
     if (cap.isOpened()) stopVideo();
 
     performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
-    cv::Mat pred = predict(frame, psr);
+    cv::Mat pred = predict(psr);
     for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
 
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (psr.unlabeledImage.data), psr.unlabeledImage.cols, psr.unlabeledImage.rows, QImage::Format_RGB888)));
@@ -135,7 +149,7 @@ void Demo::stopVideo(){
     cap.release();
 }
 
-cv::Mat Demo::predict(cv::Mat img, performSegmentationResponse psr){
+cv::Mat Demo::predict(performSegmentationResponse psr){
     cv::Mat keysFeatures((int)psr.keys.size(), parent->featureExtractionManager->otherFeatures + parent->featureExtractionManager->profileColumns, CV_32F);
     for (int i = 0; i < (int)psr.keys.size(); i++){
         std::vector<float> features = parent->featureExtractionManager->extractFeatures(psr.keys[i]);
@@ -156,7 +170,7 @@ void Demo::updateFrame(){
         disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
 
         performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
-        cv::Mat pred = predict(frame, psr);
+        cv::Mat pred = predict(psr);
         for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
         frame = psr.unlabeledImage;
 

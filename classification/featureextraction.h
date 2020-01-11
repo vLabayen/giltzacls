@@ -25,7 +25,7 @@ public:
     ~FeatureExtraction();
 
     void setup(void);
-    int profileColumns = 10;
+    int profileColumns = 20;
     int otherFeatures = 4;
 
     std::vector<float> extractFeatures_v1(cv::Mat src);

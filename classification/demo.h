@@ -15,13 +15,6 @@ class MainWindow;
 class StandardScaler;
 struct performSegmentationResponse;
 
-/*
-struct predictResponse{
-    performSegmentationResponse* psr;
-    cv::Mat pred;
-};
-*/
-
 class Demo : public QObject {
     Q_OBJECT
 
@@ -50,7 +43,7 @@ private:
     int frameTime = 20; //ms
 
 
-    cv::Mat predict(cv::Mat img, performSegmentationResponse psr);
+    cv::Mat predict(performSegmentationResponse psr);
 
 private slots:
     void searchCameras_onClick(void);
@@ -59,6 +52,7 @@ private slots:
 
     void loadDataset_onClick(void);
     void selectedClass_onChange(int index);
+    void selectedImage_onChange(int index);
     void loadImage_onClick(void);
 
     void loadScaler_onClick(void);
