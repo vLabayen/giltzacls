@@ -92,7 +92,7 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
     }
     //Eliminamos aquellos rotatedRectangle parasitos si su area es menor que 1/3 del mayor detectado en la imagen.
     for( int i = contours.size()-1; i >= 0 ; i-- ){
-        if(box[i].size.area() < maxAreaLocated/4){
+        if(box[i].size.area() < maxAreaLocated/4 || box[i].size.area() <= 50){
             box.erase(box.begin()+i);
         }
     }
@@ -131,7 +131,6 @@ void Segmentation::List_BoundingBox(std::vector<cv::RotatedRect> box ){
 }
 
 cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr, cv::Mat drawing){
-    if(i >= 0){
         int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
         int newWidth = diagonal;
         int newHeight =diagonal;
@@ -158,9 +157,6 @@ cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRec
         warpAffine(targetMat, rotated, M, targetMat.size(), cv::INTER_CUBIC);
         getRectSubPix(rotated, rect_size, correctedBoundingCenter, cropped);
         return cropped;
-    }else{
-        return drawing;
-    }
 }
 
 cv::Mat Segmentation::limpiezaBordes(cv::Mat src){

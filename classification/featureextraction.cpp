@@ -43,7 +43,7 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     );
 
     cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage, false).keys;
+    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage, showGrayscales).keys;
 
     disconnect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     parent->ui->featureextraction_keys_comboBox->clear();
@@ -53,13 +53,15 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     connect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     currentKeyIndex = parent->ui->featureextraction_keys_comboBox->currentIndex();
 
-    parent->ui->featureextraction_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage(
-        (const unsigned char*) (segmentedKeys[currentKeyIndex].data),
-        segmentedKeys[currentKeyIndex].cols,
-        segmentedKeys[currentKeyIndex].rows,
-        segmentedKeys[currentKeyIndex].step,
-        QImage::Format_Grayscale8
-    )));
+    if (currentKeyIndex >= 0){
+        parent->ui->featureextraction_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage(
+            (const unsigned char*) (segmentedKeys[currentKeyIndex].data),
+            segmentedKeys[currentKeyIndex].cols,
+            segmentedKeys[currentKeyIndex].rows,
+            segmentedKeys[currentKeyIndex].step,
+            (showGrayscales) ? QImage::Format_Grayscale8 : QImage::Format_RGB888
+        )));
+    }
 }
 
 void FeatureExtraction::selectedKey_onChange(int index){
@@ -69,7 +71,7 @@ void FeatureExtraction::selectedKey_onChange(int index){
         segmentedKeys[currentKeyIndex].cols,
         segmentedKeys[currentKeyIndex].rows,
         segmentedKeys[currentKeyIndex].step,
-        QImage::Format_Grayscale8
+        (showGrayscales) ? QImage::Format_Grayscale8 : QImage::Format_RGB888
     )));
 }
 
@@ -170,10 +172,11 @@ void FeatureExtraction::exportImages_onClick(){
         for (int j = 0; j < parent->ui->featureextraction_image_comboBox->count(); j++){
             QString image = QString("%1/%2/%3").arg(mainDir, cls, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
             cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage).keys;
-
-            QString dstimage = QString("%1/%2").arg(dstdir, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
-            cv::imwrite(dstimage.toStdString(), keys[0]);
+            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage, showGrayscales).keys;
+            if (keys.size() > 0){
+                QString dstimage = QString("%1/%2").arg(dstdir, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
+                cv::imwrite(dstimage.toStdString(), keys[0]);
+            }
         }
     }
 }

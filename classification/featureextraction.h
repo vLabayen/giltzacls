@@ -33,6 +33,8 @@ public:
     std::vector<float> extractFeatures_v3(cv::Mat src);
     std::vector<float> extractFeatures(cv::Mat src);
 
+    bool showGrayscales = true;
+
 private:
     MainWindow* parent;
 
