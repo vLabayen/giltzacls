@@ -25,7 +25,7 @@ void Segmentation::BotonSegmentarListener(void){
     List_BoundingBox(rotatedRect);
 }
 
-performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
+performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage, bool umbralized){
     cv::Mat imageThresholded = thresholdingTrimmed(srcImage);
     std::vector<cv::RotatedRect> rr = findBoundingBox1(imageThresholded);
     std::vector<cv::Mat> allKeysSegmented(rr.size());
@@ -33,7 +33,10 @@ performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
     performSegmentationResponse rPSR;
     cv::Point2f pts[4];
     for(int keyIndex = 0; keyIndex < rr.size(); keyIndex++){
-        allKeysSegmented[keyIndex] =SecondthresholdingTrimmedV2(show_BoundingBoxOriented(keyIndex, rr, imageThresholded));
+           allKeysSegmented[keyIndex] =SecondthresholdingTrimmedV2(show_BoundingBoxOriented(keyIndex, rr, imageThresholded));
+        if(umbralized == false){
+            bitwise_and(show_BoundingBoxOriented(keyIndex, rr, srcImage),show_BoundingBoxOriented(keyIndex, rr, srcImage), allKeysSegmented[keyIndex]);
+        }
         rr[keyIndex].points(pts); labelsPoint[keyIndex] = pts[0];
     }
     rPSR.keys = allKeysSegmented;
@@ -41,6 +44,7 @@ performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage){
     rPSR.unlabeledImage = drawBoundingBox(rr, srcImage);
     return rPSR;
 }
+
 
 cv::Mat Segmentation::thresholdingTrimmed(cv::Mat OriginalImage){
     cv::Mat imageThresholded;
@@ -55,6 +59,7 @@ cv::Mat Segmentation::thresholdingTrimmed(cv::Mat OriginalImage){
     int sz1 = 2;
     cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
     morphologyEx(imageThresholded, imageThresholded, cv::MORPH_CLOSE, ES1);
+    imageThresholded = limpiezaBordes(imageThresholded);
     //A partir de aqui es un cierre de huecos que da asco.
     cv::Mat imageThresholded1 = imageThresholded.clone();
     cv::floodFill(imageThresholded1, cv::Point(0,0), CV_RGB(255,255,255));
@@ -78,9 +83,6 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
 
     findContours( imageThresholded, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE  , cv::Point(0, 0));
     std::vector<cv::RotatedRect> box(contours.size());
-
-    //cv::Mat tmp = drawing.clone();
-
     float maxAreaLocated = 0;
     for( size_t i = 0; i < contours.size(); i++ ){
         box[i] = minAreaRect(contours[i]);
@@ -129,32 +131,54 @@ void Segmentation::List_BoundingBox(std::vector<cv::RotatedRect> box ){
 }
 
 cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr, cv::Mat drawing){
-    int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
-    int newWidth = diagonal;
-    int newHeight =diagonal;
-    int offsetX = (newWidth - drawing.cols) / 2;
-    int offsetY = (newHeight - drawing.rows) / 2;
-    cv::Mat targetMat(newWidth, newHeight, drawing.type(), cv::Scalar(0,0,0));
-    cv::Point2f src_center(targetMat.cols/2.0F, targetMat.rows/2.0F);
-    float angle = rr[i].angle;
-    cv::Size rect_size = rr[i].size;
-    if(rect_size.width > rect_size.height){
-        if((rr[i].center.x - rect_size.width) > 0){
-           angle = 180+angle;
+    if(i >= 0){
+        int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
+        int newWidth = diagonal;
+        int newHeight =diagonal;
+        int offsetX = (newWidth - drawing.cols) / 2;
+        int offsetY = (newHeight - drawing.rows) / 2;
+        cv::Mat targetMat(newWidth, newHeight, drawing.type(), cv::Scalar(0,0,0));
+        cv::Point2f src_center(targetMat.cols/2.0F, targetMat.rows/2.0F);
+        float angle = rr[i].angle;
+        cv::Size rect_size = rr[i].size;
+        if(rect_size.width > rect_size.height){
+            if((rr[i].center.x - rect_size.width) > 0){
+               angle = 180+angle;
+            }else{
+                angle = -180+angle;
+            }
         }else{
-            angle = -180+angle;
+               angle += 90.0;
+               cv::swap(rect_size.width, rect_size.height);
         }
+        cv::Point2f correctedBoundingCenter(rr[i].center.x + offsetX, rr[i].center.y + offsetY );
+        cv::Mat M = getRotationMatrix2D(correctedBoundingCenter, angle, 1.0);
+        cv::Mat rotated, cropped;
+        drawing.copyTo(targetMat(cv::Rect(offsetX, offsetY, drawing.cols, drawing.rows)));
+        warpAffine(targetMat, rotated, M, targetMat.size(), cv::INTER_CUBIC);
+        getRectSubPix(rotated, rect_size, correctedBoundingCenter, cropped);
+        return cropped;
     }else{
-           angle += 90.0;
-           cv::swap(rect_size.width, rect_size.height);
+        return drawing;
     }
-    cv::Point2f correctedBoundingCenter(rr[i].center.x + offsetX, rr[i].center.y + offsetY );
-    cv::Mat M = getRotationMatrix2D(correctedBoundingCenter, angle, 1.0);
-    cv::Mat rotated, cropped;
-    drawing.copyTo(targetMat(cv::Rect(offsetX, offsetY, drawing.cols, drawing.rows)));
-    warpAffine(targetMat, rotated, M, targetMat.size(), cv::INTER_CUBIC);
-    getRectSubPix(rotated, rect_size, correctedBoundingCenter, cropped);
-    return cropped;
+}
+
+cv::Mat Segmentation::limpiezaBordes(cv::Mat src){
+    cv::Mat copiaSrc = src.clone();
+    cv::Mat dstImg = copiaSrc > 127;
+    rectangle(dstImg, Rect(0, 0, dstImg.cols, dstImg.rows), Scalar(255));
+    floodFill(dstImg, cv::Point(0, 0), Scalar(0));
+    copiaSrc = copiaSrc > 127;
+    vector<vector<Point> > contours;
+    findContours(copiaSrc, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+    for (size_t i = 0; i < contours.size(); i++){
+        Rect bounding_rect = boundingRect(contours[i]);
+        Rect test_rect = bounding_rect & Rect(1, 1, copiaSrc.cols - 2, copiaSrc.rows - 2);
+        if (bounding_rect != test_rect){
+            drawContours(copiaSrc, contours, (int)i, Scalar(0),-1);
+        }
+    }
+    return  copiaSrc;
 }
 
 
@@ -179,7 +203,6 @@ cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
     int sz1 = 2;
     cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
     morphologyEx(imageThresholded, imageThresholded, cv::MORPH_CLOSE, ES1);
-
     std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
     findContours( imageThresholded, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
@@ -191,24 +214,8 @@ cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
     }
     cv::Mat mask = cv::Mat::zeros(imageThresholded.rows, imageThresholded.cols, imageThresholded.type());
     for( size_t i = 0; i< contours.size(); i++ ){
-       //cv::Scalar color = cv::Scalar( rng.uniform(0, 256),rng.uniform(0,256), rng.uniform(0,256) );
        drawContours( mask, contours_poly, (int)i, 255, cv::FILLED);
     }
-
-    //cv::Scalar color = cv::Scalar( rng.uniform(0, 256),rng.uniform(0,256), rng.uniform(0,256) );
-    //drawContours( drawing, contours_poly, (int)i, color );
-    /*
-    //TODO: Repensar el llenado de huecos porque esto de aqui abajo da pena. Buscar un imfill en condiciones.
-    cv::Mat imageThresholded1 = imageThresholded.clone();
-
-    cv::floodFill(imageThresholded1, cv::Point((imageThresholded1.rows)/2,(imageThresholded1.cols)/2), cvScalar(255));
-    //imshow("prueba", imageThresholded1);
-    bitwise_not(imageThresholded1, imageThresholded1);
-    //imshow("prueba1", imageThresholded1);
-    imageThresholded = (imageThresholded1 | imageThresholded);
-    //imshow("prueba2", imageThresholded);
-    */
-
     return mask;
 }
 
