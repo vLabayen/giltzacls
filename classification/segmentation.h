@@ -30,7 +30,7 @@ private:
     std::vector<cv::RotatedRect> rotatedRect;
 public slots:
     cv::Mat thresholdingTrimmed(cv::Mat);
-    performSegmentationResponse performSegmentation(cv::Mat);
+    performSegmentationResponse performSegmentation(cv::Mat, bool = true);
     std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
     void List_BoundingBox(std::vector<cv::RotatedRect>);
     void show_BoundingBox(void);
@@ -46,6 +46,7 @@ public slots:
     void watershed(cv::Mat);
     void watershedV2(cv::Mat);
     void watershedV3(cv::Mat);
+    cv::Mat limpiezaBordes(cv::Mat);
 };
 
 #endif // SEGMENTATION_H
