@@ -149,21 +149,23 @@ cv::Mat Demo::predict(cv::Mat img, performSegmentationResponse psr){
 }
 
 void Demo::updateFrame(){
-    //Leemos el frame en RGB
     cap >> frame;
+        //Leemos el frame en RGB
 
-    if (autoclassifyFrame){
-        disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
 
-        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
-        cv::Mat pred = predict(frame, psr);
-        for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
-        frame = psr.unlabeledImage;
+        if (autoclassifyFrame){
+            disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
 
-        connect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
-    }
+            performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+            cv::Mat pred = predict(frame, psr);
+            for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
+            frame = psr.unlabeledImage;
 
-    cvtColor(frame, frame, CV_BGR2RGB);
-    //Mostramos el frame en el label
-    parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
+            connect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
+        }
+
+        cvtColor(frame, frame, CV_BGR2RGB);
+        //Mostramos el frame en el label
+        parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
+
 }

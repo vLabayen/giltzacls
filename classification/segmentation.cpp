@@ -33,7 +33,10 @@ performSegmentationResponse Segmentation::performSegmentation(cv::Mat srcImage, 
     performSegmentationResponse rPSR;
     cv::Point2f pts[4];
     for(int keyIndex = 0; keyIndex < rr.size(); keyIndex++){
-           allKeysSegmented[keyIndex] =SecondthresholdingTrimmedV2(show_BoundingBoxOriented(keyIndex, rr, imageThresholded));
+        //std::cout << "Size" << rr[keyIndex].size << "\n" << std::endl;
+        //std::cout << "Area" << rr[keyIndex].size.area() << "\n" << std::endl;
+        cv::Mat tmp = show_BoundingBoxOriented(keyIndex, rr, imageThresholded);
+           allKeysSegmented[keyIndex] =SecondthresholdingTrimmedV2(tmp);
         if(umbralized == false){
             bitwise_and(show_BoundingBoxOriented(keyIndex, rr, srcImage),show_BoundingBoxOriented(keyIndex, rr, srcImage), allKeysSegmented[keyIndex]);
         }
@@ -59,7 +62,7 @@ cv::Mat Segmentation::thresholdingTrimmed(cv::Mat OriginalImage){
     int sz1 = 2;
     cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
     morphologyEx(imageThresholded, imageThresholded, cv::MORPH_CLOSE, ES1);
-    imageThresholded = limpiezaBordes(imageThresholded);
+    imageThresholded = limpiezaBordes(imageThresholded); //<--
     //A partir de aqui es un cierre de huecos que da asco.
     cv::Mat imageThresholded1 = imageThresholded.clone();
     cv::floodFill(imageThresholded1, cv::Point(0,0), CV_RGB(255,255,255));
@@ -84,17 +87,19 @@ void Segmentation::drawThresholdedImage(cv::Mat imageThresholded ){
     findContours( imageThresholded, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE  , cv::Point(0, 0));
     std::vector<cv::RotatedRect> box(contours.size());
     float maxAreaLocated = 0;
-    for( size_t i = 0; i < contours.size(); i++ ){
+    for( int i = 0; i < (int)contours.size(); i++ ){
         box[i] = minAreaRect(contours[i]);
         if(box[i].size.area() > maxAreaLocated){
            maxAreaLocated =  box[i].size.area();
         }
     }
+    //std::cout << "Antes:" <<box.size() << "\n" << std::endl;
     //Eliminamos aquellos rotatedRectangle parasitos si su area es menor que 1/3 del mayor detectado en la imagen.
     for( int i = contours.size()-1; i >= 0 ; i-- ){
-        if(box[i].size.area() < maxAreaLocated/4){
+        if((box[i].size.area() <= maxAreaLocated/4) || (box[i].size.area() <=50)){
             box.erase(box.begin()+i);
         }
+       //std::cout << "Despues:" <<box.size() << "\n" << std::endl;
     }
     return box;
 }
@@ -131,7 +136,7 @@ void Segmentation::List_BoundingBox(std::vector<cv::RotatedRect> box ){
 }
 
 cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr, cv::Mat drawing){
-    if(i >= 0){
+    //std::cout << "Entrada:" <<drawing.size() << "\n" << std::endl;
         int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
         int newWidth = diagonal;
         int newHeight =diagonal;
@@ -156,11 +161,11 @@ cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRec
         cv::Mat rotated, cropped;
         drawing.copyTo(targetMat(cv::Rect(offsetX, offsetY, drawing.cols, drawing.rows)));
         warpAffine(targetMat, rotated, M, targetMat.size(), cv::INTER_CUBIC);
+        //std::cout << "rotated:" <<rotated.size() << "\n" << std::endl;
         getRectSubPix(rotated, rect_size, correctedBoundingCenter, cropped);
+        //std::cout << "rect:" <<rect_size.area() << "\n" << std::endl;
+        //std::cout << "Salida:" <<cropped.size() << "\n" << std::endl;
         return cropped;
-    }else{
-        return drawing;
-    }
 }
 
 cv::Mat Segmentation::limpiezaBordes(cv::Mat src){
@@ -178,6 +183,7 @@ cv::Mat Segmentation::limpiezaBordes(cv::Mat src){
             drawContours(copiaSrc, contours, (int)i, Scalar(0),-1);
         }
     }
+
     return  copiaSrc;
 }
 
@@ -220,6 +226,7 @@ cv::Mat Segmentation::SecondthresholdingTrimmed(cv::Mat ImageCropped){
 }
 
 cv::Mat Segmentation::SecondthresholdingTrimmedV2(cv::Mat ImageCropped){
+    //std::cout << "EntradaSecond:" <<ImageCropped.size() << "\n" << std::endl;
     //DOC: --> https://stackoverflow.com/questions/29108270/opencv-2-4-10-bwlabel-connected-components/30265609#30265609
     cv::Mat labels, stats, centroids;
     //Detectamos el numero de componentes conexas empleando una 8-conectividad. Obtenemos una imagen del mismo tamaño labeleada.
@@ -235,10 +242,16 @@ cv::Mat Segmentation::SecondthresholdingTrimmedV2(cv::Mat ImageCropped){
     }
     //Filtramos todo aquellos que no sea la región conexa de mayor área.
     cv::Mat soloUnLabel;
-    compare(labels, indexMaxAreaLocated, soloUnLabel, CMP_EQ);
+
     //Para evitar el ruido generado por la separación de componentes realizamos un and con la imagen original.
-    soloUnLabel = soloUnLabel & ImageCropped;
-    return soloUnLabel;
+    //try {
+        //std::cout << "labels:" <<labels.size() << "\n" << std::endl;
+        compare(labels, indexMaxAreaLocated, soloUnLabel, CMP_EQ);
+        soloUnLabel = soloUnLabel & ImageCropped;
+        return soloUnLabel;
+    //} catch (...) {
+     //   return ImageCropped;
+    //}
 }
 
 
