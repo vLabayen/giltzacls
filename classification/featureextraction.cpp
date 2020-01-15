@@ -11,6 +11,7 @@ void FeatureExtraction::setup(){
     connect(parent->ui->featureextraction_loadSegmentedImage_pushButton, SIGNAL(pressed()), this, SLOT(loadSegmentedImage_onClick()));
     connect(parent->ui->featureextraction_extractFeatures_pushButton, SIGNAL(pressed()), this, SLOT(extractFeatures_onClick()));
     connect(parent->ui->featureextraction_exportCsv_pushButton, SIGNAL(pressed()), this, SLOT(exportCsv_onClick()));
+    connect(parent->ui->featureextraction_exportImages_pushButton, SIGNAL(pressed()), this, SLOT(exportImages_onClick()));
     connect(parent->ui->featureextraction_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
     connect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
 }
@@ -42,7 +43,7 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     );
 
     cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage, false).keys;
+    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage, showGrayscales).keys;
 
     disconnect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     parent->ui->featureextraction_keys_comboBox->clear();
@@ -52,13 +53,15 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     connect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     currentKeyIndex = parent->ui->featureextraction_keys_comboBox->currentIndex();
 
-    parent->ui->featureextraction_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage(
-        (const unsigned char*) (segmentedKeys[currentKeyIndex].data),
-        segmentedKeys[currentKeyIndex].cols,
-        segmentedKeys[currentKeyIndex].rows,
-        segmentedKeys[currentKeyIndex].step,
-        QImage::Format_Grayscale8
-    )));
+    if (currentKeyIndex >= 0){
+        parent->ui->featureextraction_imageDisplay_label->setPixmap(QPixmap::fromImage(QImage(
+            (const unsigned char*) (segmentedKeys[currentKeyIndex].data),
+            segmentedKeys[currentKeyIndex].cols,
+            segmentedKeys[currentKeyIndex].rows,
+            segmentedKeys[currentKeyIndex].step,
+            (showGrayscales) ? QImage::Format_Grayscale8 : QImage::Format_RGB888
+        )));
+    }
 }
 
 void FeatureExtraction::selectedKey_onChange(int index){
@@ -68,7 +71,7 @@ void FeatureExtraction::selectedKey_onChange(int index){
         segmentedKeys[currentKeyIndex].cols,
         segmentedKeys[currentKeyIndex].rows,
         segmentedKeys[currentKeyIndex].step,
-        QImage::Format_Grayscale8
+        (showGrayscales) ? QImage::Format_Grayscale8 : QImage::Format_RGB888
     )));
 }
 
@@ -109,6 +112,17 @@ void FeatureExtraction::extractFeatures_onClick(){
     cvtColor(testimg, testimg, CV_GRAY2RGB);
     cv::line(testimg, cv::Point(0, f[4]), cv::Point(segmentedKeys[currentKeyIndex].cols - 1, f[4]), cv::Scalar(0, 255, 0, 0), 1);
     cv::line(testimg, cv::Point(f[3], 0), cv::Point(f[3], segmentedKeys[currentKeyIndex].rows - 1), cv::Scalar(0, 255, 0, 0), 1);
+
+
+    //std::vector<float> feat = extractFeatures_v3(segmentedKeys[currentKeyIndex]);
+    //int colWidth = ((segmentedKeys[currentKeyIndex].cols % profileColumns) == 0) ? (int)(segmentedKeys[currentKeyIndex].cols / profileColumns) : (int)(segmentedKeys[currentKeyIndex].cols / profileColumns) + 1;
+    //printf("colWidth : %d\n", colWidth);
+    //printf("Alto : %d\n", segmentedKeys[currentKeyIndex].rows);
+    //for (int i = 0; i < 10; i++){
+    //    printf("%d : %.3f --> %.3f\n", feat[4 + i] * colWidth * segmentedKeys[currentKeyIndex].rows, feat[4 + i]);
+    //    if (i != 0) cv::line(testimg, cv::Point(colWidth * i, 0), cv::Point(colWidth * i , segmentedKeys[currentKeyIndex].rows - 1), cv::Scalar(0, 255, 0, 0), 1);
+    //}
+
     parent->ui->featureextraction_imageCenterDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (testimg.data), testimg.cols, testimg.rows, testimg.step, QImage::Format_RGB888)));
 }
 
@@ -138,6 +152,33 @@ void FeatureExtraction::exportCsv_onClick(){
         }
     }
     fclose(fid);
+}
+
+void FeatureExtraction::exportImages_onClick(){
+    QString exportDir = parent->ui->featureextraction_exportImages_lineEdit->text();
+    if (!dir_exists(exportDir.toStdString().c_str())) return;
+
+    for (int i = 0; i < parent->ui->featureextraction_class_comboBox->count(); i++){
+        QString cls = parent->ui->featureextraction_class_comboBox->itemData(i).toString();
+        if (cls == QString("fondo") || cls == QString("mix")) continue;
+        parent->ui->featureextraction_image_comboBox->clear();
+        parent->loadDatasetManager->getImages(mainDir, cls, parent->ui->featureextraction_image_comboBox);
+
+        QString dstdir = QString("%1/%2").arg(exportDir, cls);
+        if (!dir_exists(dstdir.toStdString().c_str())){
+            if (!make_dir(dstdir.toStdString().c_str())) return;
+        }
+
+        for (int j = 0; j < parent->ui->featureextraction_image_comboBox->count(); j++){
+            QString image = QString("%1/%2/%3").arg(mainDir, cls, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
+            cv::Mat rawImage = cv::imread(image.toStdString().c_str());
+            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage, showGrayscales).keys;
+            if (keys.size() > 0){
+                QString dstimage = QString("%1/%2").arg(dstdir, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
+                cv::imwrite(dstimage.toStdString(), keys[0]);
+            }
+        }
+    }
 }
 
 std::vector<float> FeatureExtraction::extractFeatures_v1(cv::Mat src){

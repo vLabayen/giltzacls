@@ -7,6 +7,8 @@
 
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/ml.hpp>
+#include <opencv2/dnn.hpp>
+//#include <fdeep/fdeep.hpp>
 
 using namespace cv;
 using namespace std;
@@ -14,13 +16,6 @@ using namespace std;
 class MainWindow;
 class StandardScaler;
 struct performSegmentationResponse;
-
-/*
-struct predictResponse{
-    performSegmentationResponse* psr;
-    cv::Mat pred;
-};
-*/
 
 class Demo : public QObject {
     Q_OBJECT
@@ -39,8 +34,10 @@ private:
     QString mainDir;
     bool autoclassifyFrame = false;
 
+    bool useSVM = true;
     StandardScaler* scaler;
     Ptr<ml::SVM> SVMmodel;
+    cv::dnn::Net cnnnet;
 
     //Label display config
     int fontScale = 1;
@@ -50,7 +47,7 @@ private:
     int frameTime = 20; //ms
 
 
-    cv::Mat predict(cv::Mat img, performSegmentationResponse psr);
+    cv::Mat predict(performSegmentationResponse psr);
 
 private slots:
     void searchCameras_onClick(void);
@@ -59,6 +56,7 @@ private slots:
 
     void loadDataset_onClick(void);
     void selectedClass_onChange(int index);
+    void selectedImage_onChange(int index);
     void loadImage_onClick(void);
 
     void loadScaler_onClick(void);

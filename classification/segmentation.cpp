@@ -136,7 +136,6 @@ void Segmentation::List_BoundingBox(std::vector<cv::RotatedRect> box ){
 }
 
 cv::Mat Segmentation::show_BoundingBoxOriented(int i, std::vector<cv::RotatedRect> rr, cv::Mat drawing){
-    //std::cout << "Entrada:" <<drawing.size() << "\n" << std::endl;
         int diagonal = (int)sqrt(drawing.cols*drawing.cols+drawing.rows*drawing.rows);
         int newWidth = diagonal;
         int newHeight =diagonal;

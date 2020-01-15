@@ -25,13 +25,15 @@ public:
     ~FeatureExtraction();
 
     void setup(void);
-    int profileColumns = 10;
+    int profileColumns = 20;
     int otherFeatures = 4;
 
     std::vector<float> extractFeatures_v1(cv::Mat src);
     std::vector<float> extractFeatures_v2(cv::Mat src);
     std::vector<float> extractFeatures_v3(cv::Mat src);
     std::vector<float> extractFeatures(cv::Mat src);
+
+    bool showGrayscales = true;
 
 private:
     MainWindow* parent;
@@ -47,6 +49,7 @@ private slots:
     void selectedKey_onChange(int index);
     void extractFeatures_onClick(void);
     void exportCsv_onClick(void);
+    void exportImages_onClick(void);
 };
 
 #endif // FEATUREEXTRACTION_H
