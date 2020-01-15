@@ -7,6 +7,8 @@
 
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/ml.hpp>
+#include <opencv2/dnn.hpp>
+//#include <fdeep/fdeep.hpp>
 
 using namespace cv;
 using namespace std;
@@ -34,6 +36,9 @@ private:
 
     StandardScaler* scaler;
     Ptr<ml::SVM> SVMmodel;
+    cv::dnn::Net net;
+
+    //const fdeep::model* cnnmodel;
 
     //Label display config
     int fontScale = 1;

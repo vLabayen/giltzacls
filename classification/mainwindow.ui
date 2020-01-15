@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-      <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -1077,6 +1077,50 @@ color: rgb(204, 0, 0);</string>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="featureextraction_exportImages_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>330</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/usr/local/src/cnn</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="featureextraction_exportImages_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>360</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Exportar imágenes</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="featureextraction_exportImages_label">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>310</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Path al fichero</string>
       </property>
      </widget>
     </widget>

@@ -1,3 +1,9 @@
 https://github.com/pplonski/keras2cpp
 https://answers.opencv.org/question/172825/keras-tensorflow-opencvdnn/
 
+
+https://github.com/Dobiasd/frugally-deep/commits/master
+https://github.com/opencv/opencv/issues/13728
+
+
+https://stackoverflow.com/questions/45466020/how-to-export-keras-h5-to-tensorflow-pb

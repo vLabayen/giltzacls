@@ -11,6 +11,7 @@ void FeatureExtraction::setup(){
     connect(parent->ui->featureextraction_loadSegmentedImage_pushButton, SIGNAL(pressed()), this, SLOT(loadSegmentedImage_onClick()));
     connect(parent->ui->featureextraction_extractFeatures_pushButton, SIGNAL(pressed()), this, SLOT(extractFeatures_onClick()));
     connect(parent->ui->featureextraction_exportCsv_pushButton, SIGNAL(pressed()), this, SLOT(exportCsv_onClick()));
+    connect(parent->ui->featureextraction_exportImages_pushButton, SIGNAL(pressed()), this, SLOT(exportImages_onClick()));
     connect(parent->ui->featureextraction_class_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedClass_onChange(int)));
     connect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
 }
@@ -149,6 +150,32 @@ void FeatureExtraction::exportCsv_onClick(){
         }
     }
     fclose(fid);
+}
+
+void FeatureExtraction::exportImages_onClick(){
+    QString exportDir = parent->ui->featureextraction_exportImages_lineEdit->text();
+    if (!dir_exists(exportDir.toStdString().c_str())) return;
+
+    for (int i = 0; i < parent->ui->featureextraction_class_comboBox->count(); i++){
+        QString cls = parent->ui->featureextraction_class_comboBox->itemData(i).toString();
+        if (cls == QString("fondo") || cls == QString("mix")) continue;
+        parent->ui->featureextraction_image_comboBox->clear();
+        parent->loadDatasetManager->getImages(mainDir, cls, parent->ui->featureextraction_image_comboBox);
+
+        QString dstdir = QString("%1/%2").arg(exportDir, cls);
+        if (!dir_exists(dstdir.toStdString().c_str())){
+            if (!make_dir(dstdir.toStdString().c_str())) return;
+        }
+
+        for (int j = 0; j < parent->ui->featureextraction_image_comboBox->count(); j++){
+            QString image = QString("%1/%2/%3").arg(mainDir, cls, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
+            cv::Mat rawImage = cv::imread(image.toStdString().c_str());
+            std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage).keys;
+
+            QString dstimage = QString("%1/%2").arg(dstdir, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
+            cv::imwrite(dstimage.toStdString(), keys[0]);
+        }
+    }
 }
 
 std::vector<float> FeatureExtraction::extractFeatures_v1(cv::Mat src){

@@ -125,6 +125,13 @@ void Demo::loadScaler_onClick(){
 void Demo::loadModel_onClick(){
     QString modelPath = parent->ui->demo_modelPath_lineEdit->text();
 
+    //cnnmodel = fdeep::load_model(modelPath.toStdString().c_str());
+    //cnnmodel = new fdeep::load_model("/usr/local/src/models/keras_model.json");
+
+    net = cv::dnn::readNetFromTensorflow("/usr/local/src/models/keras_model.pb");
+    //std::vector<string> names = net.getLayerNames();
+    //for (int i = 0; i < (int)names.size(); i++) cout << names[i] << endl;
+
     SVMmodel = ml::SVM::create();
     SVMmodel = ml::SVM::load(modelPath.toStdString().c_str());
 }
@@ -151,14 +158,62 @@ void Demo::stopVideo(){
 
 cv::Mat Demo::predict(performSegmentationResponse psr){
     cv::Mat keysFeatures((int)psr.keys.size(), parent->featureExtractionManager->otherFeatures + parent->featureExtractionManager->profileColumns, CV_32F);
+    std::vector<cv::Mat> dnnInput((int)psr.keys.size());
+
     for (int i = 0; i < (int)psr.keys.size(); i++){
         std::vector<float> features = parent->featureExtractionManager->extractFeatures(psr.keys[i]);
         for (int j = 0; j < (int)features.size(); j++) keysFeatures.at<float>(i, j) = features[j];
+
+        cv::Mat resizedImg;
+        cv::resize(psr.keys[i], resizedImg, cv::Size(90,30), 0, 0, CV_INTER_AREA);
+        dnnInput[i] = resizedImg;
+        //for (int i = 0; i < resizedImg.rows; i++){
+        //    for (int j = 0; j < resizedImg.cols; j++){
+        //        printf("%d,", resizedImg.at<uchar>(i, j));
+        //    }
+        //    printf("\n");
+        //}
     }
+
+    Mat inputBlob = cv::dnn::blobFromImages(dnnInput);
+    //cout << inputBlob.size << endl;
+    //cout << "M = " << endl << " "  << inputBlob << endl << endl;
+
     scaler->transform(keysFeatures);
+
+    //const auto input = fdeep::tensor5_from_bytes(
+    //    psr.keys[0].ptr(),
+    //    static_cast<std::size_t>(psr.keys[0].rows),
+    //    static_cast<std::size_t>(psr.keys[0].rows),
+    //    static_cast<std::size_t>(psr.keys[0].channels()),
+    //    0.0f, 255.0f
+    //);
+    //const auto cnnpred = cnnmodel.predict(input);
+    //std::cout << fdeep::show_tensor5s(cnnpred) << std::endl;
+
+    net.setInput(inputBlob);
+    cv::Mat netprob = net.forward();
+    cv::Mat netpred((int)psr.keys.size(), 1, CV_8U);
+
+    for (int i = 0; i < netprob.rows; i++){
+        float max = 0;
+        int maxIndex;
+        for (int j = 0; j < netprob.cols; j++){
+            float prob = netprob.at<float>(i, j);
+            if (prob > max){
+                max = prob;
+                maxIndex = j;
+            }
+            netpred.at<uchar>(i, 0) = (uchar) maxIndex + 1;
+        }
+    }
 
     cv::Mat pred;
     SVMmodel->predict(keysFeatures, pred, ml::ROW_SAMPLE);
+
+    cout << "M = " << endl << " "  << netpred << endl << endl;
+    cout << "svm = " << endl << " "  << pred << endl << endl;
+
     return pred;
 }
 

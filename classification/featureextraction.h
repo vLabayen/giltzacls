@@ -47,6 +47,7 @@ private slots:
     void selectedKey_onChange(int index);
     void extractFeatures_onClick(void);
     void exportCsv_onClick(void);
+    void exportImages_onClick(void);
 };
 
 #endif // FEATUREEXTRACTION_H
