@@ -37,6 +37,10 @@ private slots:
 
     void updateFrame(void);
     void autocaptureTimer(int timeout);
+
+    void updateFocus(int valorFocus);
+    void updateBrightness(int valorBrightness);
+    void updateContrast(int valorContrast);
 };
 
 #endif // CAPTURE_H

@@ -27,6 +27,9 @@ public:
 
     void setup(void);
 
+    float Cparam = 0.5;
+    ml::SVM::KernelTypes kernelParam = ml::SVM::KernelTypes::LINEAR;
+
 private:
     MainWindow* parent;
     Dataset dataset;
