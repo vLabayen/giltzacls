@@ -42,7 +42,7 @@ void FeatureExtraction::loadSegmentedImage_onClick(){
     );
 
     cv::Mat rawImage = cv::imread(image.toStdString().c_str());
-    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage).keys;
+    segmentedKeys = parent->segmentationManager->performSegmentation(rawImage, false).keys;
 
     disconnect(parent->ui->featureextraction_keys_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedKey_onChange(int)));
     parent->ui->featureextraction_keys_comboBox->clear();
