@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>800</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>0</x>
       <y>0</y>
       <width>1200</width>
-      <height>800</height>
+      <height>850</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -34,7 +34,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>300</y>
+        <y>370</y>
         <width>81</width>
         <height>17</height>
        </rect>
@@ -46,9 +46,9 @@
      <widget class="QPushButton" name="capture_startVideo_pushButton">
       <property name="geometry">
        <rect>
-        <x>42</x>
+        <x>22</x>
         <y>120</y>
-        <width>171</width>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -60,7 +60,7 @@
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>533</y>
+        <y>630</y>
         <width>151</width>
         <height>25</height>
        </rect>
@@ -73,7 +73,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>570</y>
+        <y>660</y>
         <width>191</width>
         <height>17</height>
        </rect>
@@ -96,8 +96,8 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>390</y>
-        <width>221</width>
+        <y>490</y>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -114,7 +114,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>640</y>
+        <y>700</y>
         <width>221</width>
         <height>17</height>
        </rect>
@@ -127,7 +127,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>660</y>
+        <y>720</y>
         <width>48</width>
         <height>31</height>
        </rect>
@@ -136,9 +136,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QPushButton" name="capture_stopVideo_pushButton">
       <property name="geometry">
        <rect>
-        <x>42</x>
+        <x>22</x>
         <y>150</y>
-        <width>171</width>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -149,9 +149,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QComboBox" name="capture_cameraDropdown_comboBox">
       <property name="geometry">
        <rect>
-        <x>42</x>
+        <x>22</x>
         <y>80</y>
-        <width>171</width>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -160,8 +160,8 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>500</y>
-        <width>81</width>
+        <y>590</y>
+        <width>71</width>
         <height>25</height>
        </rect>
       </property>
@@ -178,7 +178,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>80</x>
-        <y>670</y>
+        <y>730</y>
         <width>67</width>
         <height>17</height>
        </rect>
@@ -191,7 +191,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>480</y>
+        <y>570</y>
         <width>71</width>
         <height>17</height>
        </rect>
@@ -204,7 +204,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>700</y>
+        <y>760</y>
         <width>92</width>
         <height>23</height>
        </rect>
@@ -217,7 +217,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>730</y>
+        <y>790</y>
         <width>211</width>
         <height>17</height>
        </rect>
@@ -232,7 +232,7 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="capture_cameraLabel">
       <property name="geometry">
        <rect>
-        <x>42</x>
+        <x>20</x>
         <y>60</y>
         <width>67</width>
         <height>17</height>
@@ -246,7 +246,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>340</y>
+        <y>410</y>
         <width>161</width>
         <height>17</height>
        </rect>
@@ -259,7 +259,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>320</y>
+        <y>390</y>
         <width>161</width>
         <height>17</height>
        </rect>
@@ -272,8 +272,8 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>440</y>
-        <width>221</width>
+        <y>540</y>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -282,7 +282,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>500</y>
+        <y>590</y>
         <width>121</width>
         <height>25</height>
        </rect>
@@ -300,7 +300,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>370</y>
+        <y>470</y>
         <width>71</width>
         <height>17</height>
        </rect>
@@ -313,7 +313,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>480</y>
+        <y>570</y>
         <width>71</width>
         <height>17</height>
        </rect>
@@ -326,7 +326,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>420</y>
+        <y>520</y>
         <width>101</width>
         <height>17</height>
        </rect>
@@ -341,7 +341,7 @@ color: rgb(204, 0, 0);</string>
         <x>260</x>
         <y>20</y>
         <width>921</width>
-        <height>741</height>
+        <height>781</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -357,9 +357,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QPushButton" name="capture_searchCameras_pushButton">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>20</x>
         <y>20</y>
-        <width>171</width>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
@@ -370,8 +370,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="capture_cameraError_label">
       <property name="geometry">
        <rect>
-        <x>32</x>
-        <y>210</y>
+        <x>30</x>
+        <y>190</y>
         <width>191</width>
         <height>17</height>
        </rect>
@@ -393,9 +393,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QSlider" name="capture_focus">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>200</y>
-        <width>171</width>
+        <x>20</x>
+        <y>240</y>
+        <width>211</width>
         <height>16</height>
        </rect>
       </property>
@@ -415,8 +415,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="capture_cameraLabel_2">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>180</y>
+        <x>20</x>
+        <y>220</y>
         <width>67</width>
         <height>17</height>
        </rect>
@@ -428,8 +428,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="capture_cameraLabel_5">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>220</y>
+        <x>20</x>
+        <y>260</y>
         <width>91</width>
         <height>17</height>
        </rect>
@@ -441,9 +441,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QSlider" name="capture_brightness">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>240</y>
-        <width>171</width>
+        <x>20</x>
+        <y>280</y>
+        <width>211</width>
         <height>16</height>
        </rect>
       </property>
@@ -463,8 +463,8 @@ color: rgb(204, 0, 0);</string>
      <widget class="QLabel" name="capture_cameraLabel_7">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>260</y>
+        <x>20</x>
+        <y>300</y>
         <width>91</width>
         <height>17</height>
        </rect>
@@ -476,9 +476,9 @@ color: rgb(204, 0, 0);</string>
      <widget class="QSlider" name="capture_contrast">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>280</y>
-        <width>171</width>
+        <x>20</x>
+        <y>320</y>
+        <width>211</width>
         <height>16</height>
        </rect>
       </property>
@@ -1357,7 +1357,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>720</y>
+        <y>780</y>
         <width>181</width>
         <height>25</height>
        </rect>
@@ -1370,7 +1370,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>690</y>
+        <y>750</y>
         <width>181</width>
         <height>23</height>
        </rect>
@@ -1414,7 +1414,7 @@ color: rgb(204, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>650</y>
+        <y>700</y>
         <width>171</width>
         <height>25</height>
        </rect>
@@ -1692,6 +1692,29 @@ color: rgb(204, 0, 0);</string>
       </property>
       <property name="tickInterval">
        <number>5</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="demo_modelType_label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>650</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tipo de clasificador</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="demo_modelType_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>670</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
       </property>
      </widget>
     </widget>

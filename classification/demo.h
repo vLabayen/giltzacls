@@ -34,11 +34,10 @@ private:
     QString mainDir;
     bool autoclassifyFrame = false;
 
+    bool useSVM = true;
     StandardScaler* scaler;
     Ptr<ml::SVM> SVMmodel;
-    cv::dnn::Net net;
-
-    //const fdeep::model* cnnmodel;
+    cv::dnn::Net cnnnet;
 
     //Label display config
     int fontScale = 1;
