@@ -173,10 +173,11 @@ void FeatureExtraction::exportImages_onClick(){
             QString image = QString("%1/%2/%3").arg(mainDir, cls, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
             cv::Mat rawImage = cv::imread(image.toStdString().c_str());
             std::vector<cv::Mat> keys = parent->segmentationManager->performSegmentation(rawImage, showGrayscales).keys;
+
             if (keys.size() > 0){
                 QString dstimage = QString("%1/%2").arg(dstdir, parent->ui->featureextraction_image_comboBox->itemData(j).toString());
                 cv::imwrite(dstimage.toStdString(), keys[0]);
-            }
+            } else printf("Error en imagen : %s\n", image.toStdString().c_str());
         }
     }
 }

@@ -109,7 +109,7 @@ void Demo::loadImage_onClick(){
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
 
     if (autoclassifyFrame) {
-        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame, isUmbralizedRequired(useSVM, useGrayscale));
         cv::Mat pred = predict(psr);
         for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
 
@@ -144,7 +144,7 @@ void Demo::continuousClassification_onToggle(bool state){
 void Demo::classifyFrame_onClick(){
     if (cap.isOpened()) stopVideo();
 
-    performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+    performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame, isUmbralizedRequired(useSVM, useGrayscale));
     cv::Mat pred = predict(psr);
     for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
 
@@ -207,7 +207,7 @@ void Demo::updateFrame(){
     if (autoclassifyFrame){
         disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
 
-        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame);
+        performSegmentationResponse psr = parent->segmentationManager->performSegmentation(frame, isUmbralizedRequired(useSVM, useGrayscale));
         cv::Mat pred = predict(psr);
         for (int i = 0; i < pred.rows; i++) cv::putText(psr.unlabeledImage, QString::number(pred.at<float>(i, 0)).toStdString().c_str(), psr.labelsPosition[i] , CV_FONT_HERSHEY_PLAIN, fontScale, CV_RGB(0,255,0), thickness);
         frame = psr.unlabeledImage;
@@ -218,4 +218,11 @@ void Demo::updateFrame(){
     cvtColor(frame, frame, CV_BGR2RGB);
     //Mostramos el frame en el label
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
+}
+
+bool Demo::isUmbralizedRequired(bool svm, bool grayscale){
+    //Si estamos usando svm siempre queremos imagen umbralizada
+    if (svm) return true;
+    //En caso contrario, la querremos si queremos escala de grises
+    return grayscale;
 }

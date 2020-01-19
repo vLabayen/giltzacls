@@ -38,6 +38,7 @@ private:
     StandardScaler* scaler;
     Ptr<ml::SVM> SVMmodel;
     cv::dnn::Net cnnnet;
+    bool useGrayscale = true;
 
     //Label display config
     int fontScale = 1;
@@ -48,6 +49,8 @@ private:
 
 
     cv::Mat predict(performSegmentationResponse psr);
+    bool isUmbralizedRequired(bool svm, bool grayscale);
+
 
 private slots:
     void searchCameras_onClick(void);
