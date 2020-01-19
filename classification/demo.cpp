@@ -203,7 +203,7 @@ cv::Mat Demo::predict(performSegmentationResponse psr){
 void Demo::updateFrame(){
     //Leemos el frame en RGB
     cap >> frame;
-
+  
     if (autoclassifyFrame){
         disconnect(frameTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
 
@@ -218,6 +218,7 @@ void Demo::updateFrame(){
     cvtColor(frame, frame, CV_BGR2RGB);
     //Mostramos el frame en el label
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
+
 }
 
 bool Demo::isUmbralizedRequired(bool svm, bool grayscale){
