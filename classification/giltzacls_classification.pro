@@ -31,7 +31,6 @@ SOURCES += \
     loaddataset.cpp \
     segmentation.cpp \
     training.cpp \
-    evaluation.cpp \
     demo.cpp \
     featureextraction.cpp \
     standardscaler.cpp
@@ -43,7 +42,6 @@ HEADERS += \
     loaddataset.h \
     segmentation.h \
     training.h \
-    evaluation.h \
     demo.h \
     featureextraction.h \
     standardscaler.h

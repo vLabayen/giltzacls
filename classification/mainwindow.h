@@ -7,7 +7,6 @@
 #include <segmentation.h>
 #include <featureextraction.h>
 #include <training.h>
-#include <evaluation.h>
 #include <demo.h>
 #include <standardscaler.h>
 
@@ -37,7 +36,6 @@ class LoadDataset;
 class Segmentation;
 class FeatureExtraction;
 class Training;
-class Evaluation;
 class Demo;
 
 class MainWindow : public QMainWindow {
@@ -53,7 +51,6 @@ class MainWindow : public QMainWindow {
         Segmentation* segmentationManager;
         FeatureExtraction* featureExtractionManager;
         Training* trainingManager;
-        Evaluation* evaluationManager;
         Demo* demoManager;
 
 };

@@ -8,7 +8,6 @@
 class StandardScaler
 {
 public:
-    //StandardScaler();
     StandardScaler(int numFeatures);
     StandardScaler(const char* filename);
     ~StandardScaler();
@@ -16,7 +15,6 @@ public:
     void fit(cv::Mat data);
     void transform(cv::Mat data);
     void save(const char* filename);
-    //void load(const char* filename);
 
 private:
     int numFeatures;

@@ -1,9 +1,6 @@
 #include "standardscaler.h"
 
-/*StandardScaler::StandardScaler(){
-    setlocale(LC_NUMERIC, "en_US.UTF-8");
-}*/
-
+//Constructor estandar sabiendo el numero de features
 StandardScaler::StandardScaler(int numFeatures) : numFeatures(numFeatures) {
     featureMean = std::vector<float>(numFeatures, 0);
     featureStd = std::vector<float>(numFeatures, 0);
@@ -11,6 +8,8 @@ StandardScaler::StandardScaler(int numFeatures) : numFeatures(numFeatures) {
     setlocale(LC_NUMERIC, "en_US.UTF-8");
 }
 
+//Constructor a partir de fichero guardado con la funcion save
+//Se lee el archivo y se crean los vectores ya inicializados con dichos valores
 StandardScaler::StandardScaler(const char *filename){
     FILE* fid = fopen(filename, "r");
     char buf[1024];
@@ -31,6 +30,8 @@ StandardScaler::StandardScaler(const char *filename){
 StandardScaler::~StandardScaler() {}
 
 void StandardScaler::fit(cv::Mat data){
+    //Calculamos suma y suma de cuadrados
+    //para calcular media y desviacion tipica en una iteracion del dataset
     std::vector<float> sum(numFeatures, 0);
     std::vector<float> squaredSum(numFeatures, 0);
     for (int i = 0; i < data.rows; i++){
@@ -41,6 +42,7 @@ void StandardScaler::fit(cv::Mat data){
         }
     }
 
+    //Establecemos los valores de la respectiva feature
     for (int j = 0; j < numFeatures; j++){
         featureMean[j] = (sum[j] / data.rows);
         featureStd[j] = (float)sqrt((squaredSum[j] / data.rows) - (featureMean[j] * featureMean[j]));
@@ -48,6 +50,7 @@ void StandardScaler::fit(cv::Mat data){
 }
 
 void StandardScaler::transform(cv::Mat data){
+    //Recorremos los valores del dataset y los estandarizamos con los valores de media y std almacenados
     for (int i = 0; i < data.rows; i++){
         for (int j = 0; j < data.cols; j++){
             data.at<float>(i, j) = (data.at<float>(i, j) - featureMean[j]) / featureStd[j];
@@ -56,6 +59,10 @@ void StandardScaler::transform(cv::Mat data){
 }
 
 void StandardScaler::save(const char* filename){
+    //Guardamos los valores de media y std en un fichero
+    //La primera linea tendra el numero de features consideradas
+    //Se generará una linea para cada feature con formato mean,std\n
+
     FILE* fid = fopen(filename, "w");
 
     fprintf(fid, "%d\n", numFeatures);
@@ -63,26 +70,3 @@ void StandardScaler::save(const char* filename){
 
     fclose(fid);
 }
-/*
-void StandardScaler::load(const char* filename){
-    FILE* fid = fopen(filename, "r");
-    char buf[1024];
-
-    fgets(buf, 1024, fid);
-    int* numF;
-    sscanf(buf, "%d\n", numF);
-    numFeatures = *numF;
-    *featureMean = std::vector<float>(numFeatures, 0);
-    *featureStd = std::vector<float>(numFeatures, 0);
-
-    float* fMean;
-    float* fStd;
-    for (int i = 0; i < numFeatures; i++){
-        fgets(buf, 1024, fid);
-        sscanf(buf, "%f,%f\n", fMean, fStd);
-        (*featureMean)[i] = *fMean;
-        (*featureStd)[i] = *fStd;
-    }
-
-    fclose(fid);
-}*/

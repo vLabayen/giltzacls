@@ -27,8 +27,6 @@ public:
     getClassesResult getClasses(QComboBox* dst_cb, QString mainPath);
     getClassesResult getClasses(QComboBox* dst_cb);
     getImagesResult getImages(QString dir, QString folder, QComboBox* dst_cb);
-    void previewImage(QString dir, int imageIndex);
-    void setError(const char* msg);
 
     QString mainDir;
     QString selectedDir;
@@ -37,6 +35,9 @@ public:
 private:
     MainWindow* parent;
     int errorTimeout = 5000;
+
+    void previewImage(QString dir, int imageIndex);
+    void setError(const char* msg);
 
 private slots:
     void loadDataset_onClick(void);
