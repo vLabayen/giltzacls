@@ -8,7 +8,6 @@
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/ml.hpp>
 #include <opencv2/dnn.hpp>
-//#include <fdeep/fdeep.hpp>
 
 using namespace cv;
 using namespace std;

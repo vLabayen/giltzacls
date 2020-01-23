@@ -41,6 +41,7 @@ private:
     QString mainDir;
     std::vector<cv::Mat> segmentedKeys;
     int currentKeyIndex;
+    cv::Point getCentroid(cv::Mat src);
 
 private slots:
     void loadDataset_onClick(void);

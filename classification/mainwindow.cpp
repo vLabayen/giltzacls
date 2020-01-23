@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
     segmentationManager(new Segmentation(this)),
     featureExtractionManager(new FeatureExtraction(this)),
     trainingManager(new Training(this)),
-    evaluationManager(new Evaluation(this)),
     demoManager(new Demo(this))
 {
     ui->setupUi(this);
@@ -18,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     segmentationManager->setup();
     featureExtractionManager->setup();
     trainingManager->setup();
-    evaluationManager->setup();
     demoManager->setup();
 }
 
