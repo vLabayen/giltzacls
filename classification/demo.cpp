@@ -251,6 +251,7 @@ void Demo::updateFrame(){
 
     //Mostramos el frame en el display
     parent->ui->demo_cameraDisplay_label->setPixmap(QPixmap::fromImage(QImage((const unsigned char*) (frame.data), frame.cols, frame.rows, QImage::Format_RGB888)));
+
 }
 
 bool Demo::isUmbralizedRequired(bool svm, bool grayscale){
