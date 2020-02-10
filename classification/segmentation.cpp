@@ -263,53 +263,6 @@ void Segmentation::drawThresholdedkey(cv::Mat mask){
 }
 
 
-
-void Segmentation::watershedV2(cv::Mat src){
-    cv::Mat imageFiltered;
-    src.convertTo(src, CV_32F, 1.f/255);
-    pow(src,0.3,src);
-    src.convertTo(src, CV_32F, 1.f*255);
-    src.convertTo(src, CV_8U);
-    cv::pyrMeanShiftFiltering(src, imageFiltered, 21, 51);
-    cvtColor(imageFiltered, imageFiltered, CV_BGR2GRAY);
-    cv::Mat binaryImage;
-    threshold(imageFiltered, binaryImage, 0, 255, cv::THRESH_OTSU);
-    cv::Mat transformacionDistancia;
-    cv::distanceTransform(binaryImage, transformacionDistancia, cv::DIST_L2, 3);
-    cv::normalize(transformacionDistancia, transformacionDistancia, 1, 0, cv::NORM_INF);
-    cv::Mat salida = transformacionDistancia.clone();
-    cvtColor(salida, salida, CV_GRAY2RGB);
-imshow("DistanceTransform",transformacionDistancia);
-    cv::threshold(transformacionDistancia, transformacionDistancia, 0.5, 255, cv::THRESH_BINARY);
-    cv::Mat E = cv::Mat::ones(9,9,CV_8U);//Generamos el elemento estructurante
-imshow("DistanceTransformBinary", transformacionDistancia);
-    cv::erode(transformacionDistancia,transformacionDistancia, E);
-imshow("DistanceTransformBinaryAfterErode", transformacionDistancia);
-    cv::Mat marcadores;
-    transformacionDistancia.convertTo(transformacionDistancia, CV_8U, 1, 0);
-    cv::connectedComponents(transformacionDistancia, marcadores);
-    for (int i = 0; i < marcadores.rows; i++) {
-        for (int j = 0; j < marcadores.cols; j++) {
-            marcadores.ptr(i, j)[0] = marcadores.ptr(i, j)[0] + 1;
-            if (transformacionDistancia.ptr(i, j)[0] == 255) {
-                marcadores.ptr(i, j)[0] = 0;
-            }
-        }
-    }
-
-    cv::watershed(salida, marcadores);
-    // draw barriers
-    for (int i = 0; i < marcadores.rows; i++) {
-        for (int j = 0; j < marcadores.cols; j++) {
-            int index = marcadores.at<int>(i,j);
-            if (index == -1) {
-                salida.at<cv::Vec3b>(i,j) = cv::Vec3b(0,0,255);
-            }
-        }
-    }
-imshow("salida", salida);
-}
-
 void Segmentation::watershedV3(cv::Mat src){
     cv::Mat imageFiltered;
     src.convertTo(src, CV_32F, 1.f/255);
@@ -324,28 +277,12 @@ void Segmentation::watershedV3(cv::Mat src){
     threshold(imageFiltered, binaryImage, 0, 255, cv::THRESH_OTSU);
 
     cv:: Mat complementariaPequena; cv:: Mat complementaria; cv::bitwise_not(binaryImage, complementaria);
-    /*
-    int sz1 = 15;
-    cv::Mat complementariaOriginal = complementaria.clone();
-    imshow("Complementatia0", complementaria);
-    cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
-    cv::dilate(complementaria, complementaria, ES1);
-    imshow("Complementatia1", complementaria);
-    cv::bitwise_not(complementaria, complementariaPequena);
-imshow("ComplementatiaPequena", complementariaPequena);
-    cv::Mat complementariafinal ; cv::bitwise_or(complementariaPequena,complementariaOriginal, complementariafinal);
-    imshow("ComplementatiaFinal", complementariafinal);
-    */
     //Erosion, Dilatacion, Dilatación OBTENCION DEL FONDO
     cv::Mat E = cv::Mat::ones(3,3,CV_8U);//Generamos el elemento estructurante
     cv::Mat apertura; cv::Mat fondoLlaves; cv::Mat transformacionDistancia; cv::Mat frontLLaves; cv::Mat resultadoResta;
-imshow("ImagenBinaria", binaryImage);
     cv::erode(binaryImage,binaryImage, E);
-imshow("Erosion", binaryImage);
     cv::dilate(binaryImage, apertura, E);
     cv::dilate(apertura, fondoLlaves, E, cv::Point(-1, -1), 7);
-imshow("Apertura", apertura);
-imshow("fondoLlaves", fondoLlaves);
 
     //TransformacionDistancia
     cv::distanceTransform(apertura, transformacionDistancia, DIST_L1, 3);
@@ -357,12 +294,9 @@ imshow("transDistancia", transformacionDistancia);
     cv::Mat ES1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2*sz1-1, 2*sz1-1));
     morphologyEx(transformacionDistancia, transformacionDistancia, cv::MORPH_OPEN, ES1);
 //cv::erode(transformacionDistancia,transformacionDistancia, ES1);
-imshow("transDistancia1", transformacionDistancia);
     cv::threshold(transformacionDistancia, frontLLaves, 0.1, 255, cv::THRESH_BINARY);
     frontLLaves.convertTo(frontLLaves, CV_8U, 1, 0);
     cv::subtract(fondoLlaves, frontLLaves, resultadoResta);
-imshow("frontLlaves", frontLLaves);
-imshow("resultadoResta", resultadoResta);
 
     //Generamos marcadores para las componentes conexas
     cv::Mat marcadores;
@@ -387,97 +321,3 @@ imshow("resultadoResta", resultadoResta);
 imshow("salida", salida);
 }
 
-
-
-
-void Segmentation::watershed(cv::Mat src){
-    cv::Mat imageGray;
-    cvtColor(src, imageGray, CV_BGR2GRAY); //Transdormamos la imagen original a escalada de grises
-    cv::Mat tst;
-    cv::bilateralFilter(imageGray,tst,31,31,75);
-    //cv::medianBlur(tst, imageGray,15);
-
-//imshow("Bilateral", tst);
-    tst.convertTo(imageGray, CV_32F);
-    imageGray.convertTo(imageGray, CV_32F, 1.f/255);
-    pow(imageGray,0.3,imageGray);
-    imageGray.convertTo(imageGray, CV_32F, 1.f*255);
-    imageGray.convertTo(imageGray, CV_8U);
-//imshow("Potencia", imageGray);
-    //cv::medianBlur(imageGray, imageGray,11);//Filtro de mediana de 5x5
-
-
-cv::Mat salida = imageGray.clone();
-cvtColor(salida, salida, CV_GRAY2RGB);
-
-    threshold(imageGray, imageGray, 0, 255, cv::THRESH_BINARY + cv::THRESH_OTSU); //Calculamos el threshold con OTSU
-    cv::Mat E = cv::Mat::ones(33,33,CV_8U);//Generamos el elemento estructurante
-    //Erosion, Dilatacion, Dilatación
-    //cv::erode(imageGray,imageGray, E);
-    cv::Mat apertura; cv::Mat fondoLlaves; cv::Mat transformacionDistancia; cv::Mat frontLLaves; cv::Mat resultadoResta;
-//imshow("image gray", imageGray);
-
-cv::erode(imageGray,imageGray, E);
-//imshow("erode", imageGray);
-    cv::Mat E1 = cv::Mat::ones(35,35,CV_8U);//Generamos el elemento estructurante
-    cv::dilate(imageGray, apertura, E1);
-//apertura = imageGray;
-//imshow("Apertura", apertura);
-    cv::dilate(apertura, fondoLlaves, E, cv::Point(-1, -1), 7);
-    cv::distanceTransform(apertura, transformacionDistancia, cv::DIST_L2, 3);
-    cv::normalize(transformacionDistancia, transformacionDistancia, 1, 0, cv::NORM_INF);
-//imshow("TransDistancia", transformacionDistancia);
-    //Nos quedamos con el primer plano
-    cv::threshold(transformacionDistancia, frontLLaves, 0.7, 255, cv::THRESH_BINARY);
-    //cv::erode(frontLLaves,frontLLaves, E);
-    frontLLaves.convertTo(frontLLaves, CV_8U, 1, 0);
-imshow("FrontLlaves", frontLLaves);
-imshow("FondoLlaves", fondoLlaves);
-    cv::subtract(fondoLlaves, frontLLaves, resultadoResta);
-imshow("resultadoResta", resultadoResta);
-    //Generamos marcadores para las componentes conexas
-    cv::Mat marcadores;
-    cv::connectedComponents(frontLLaves, marcadores);
-    for (int i = 0; i < marcadores.rows; i++) {
-        for (int j = 0; j < marcadores.cols; j++) {
-            marcadores.ptr(i, j)[0] = marcadores.ptr(i, j)[0] + 1;
-            if (resultadoResta.ptr(i, j)[0] == 255) {
-                marcadores.ptr(i, j)[0] = 0;
-            }
-        }
-    }
-    cv::watershed(salida, marcadores);
-    // draw barriers
-    for (int i = 0; i < marcadores.rows; i++) {
-        for (int j = 0; j < marcadores.cols; j++) {
-            int index = marcadores.at<int>(i,j);
-            if (index == -1) {
-                salida.at<cv::Vec3b>(i,j) = cv::Vec3b(0,0,255);
-            }
-        }
-    }
-imshow("salida", salida);
-
-}
-
-
-
-// Probablemente basura:
-void Segmentation::show_BoundingBox(void){
-    /*int i = parent->ui->foundImages_comboBox_1->currentData().toInt();
-    cv::Mat cropped = parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+2).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+2);
-    QImage qt_cropped = QImage((const unsigned char*) (cropped.data), cropped.cols, cropped.rows, cropped.step, QImage::Format_RGB888);
-    QPixmap escaled = QPixmap::fromImage(qt_cropped).scaledToHeight(parent->ui->Segmentation_image2->height(), Qt::SmoothTransformation);
-    parent->ui->Segmentation_image2->setPixmap(escaled);
-    parent->ui->Segmentation_image2->resize(parent->ui->Segmentation_image2->pixmap()->size());
-    cv::Mat KeySelectedThresholded = SecondthresholdingTrimmed(cropped);
-    */
-}
-
-/*
-void Segmentation::cropBoundingBox(std::vector<cv::Rect> boundRect ){
-    for (int i = 0 ; i < (int)boundRect.size(); i++){
-    imshow(QString("Img: %1").arg(QString::number(i)).toStdString(), parent->loadDatasetManager->selectedImage.rowRange(boundRect[i].y, boundRect[i].y + boundRect[i].height+1).colRange(boundRect[i].x, boundRect[i].x + boundRect[i].width+1));
-    }
-}
-*/

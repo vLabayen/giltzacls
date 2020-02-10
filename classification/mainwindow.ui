@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="capture">
      <attribute name="title">
@@ -515,7 +515,7 @@ color: rgb(204, 0, 0);</string>
        </font>
       </property>
       <property name="text">
-       <string>/usr/local/src/images</string>
+       <string>/usr/local/src/jesus_victor_images</string>
       </property>
      </widget>
      <widget class="QLabel" name="loaddataset_datasetPath_label">
@@ -1407,7 +1407,7 @@ color: rgb(204, 0, 0);</string>
        </font>
       </property>
       <property name="text">
-       <string>/usr/local/src/models/svm.txt</string>
+       <string>/home/jesus/Documentos/Master/PSM/QT/giltzaclsVersionFinal/giltzacls/datos/models/svm.txt</string>
       </property>
      </widget>
      <widget class="QPushButton" name="demo_loadModel_pushButton">
@@ -1529,7 +1529,7 @@ color: rgb(204, 0, 0);</string>
        </font>
       </property>
       <property name="text">
-       <string>/usr/local/src/images</string>
+       <string>/usr/local/src/jesus_victor_images</string>
       </property>
      </widget>
      <widget class="QLabel" name="demo_datasetPath_label">
@@ -1573,7 +1573,7 @@ color: rgb(204, 0, 0);</string>
        </font>
       </property>
       <property name="text">
-       <string>/usr/local/src/models/sscaler.txt</string>
+       <string>/home/jesus/Documentos/Master/PSM/QT/giltzaclsVersionFinal/giltzacls/datos/models/sscaler.txt</string>
       </property>
      </widget>
      <widget class="QLabel" name="demo_scalerPath_label">

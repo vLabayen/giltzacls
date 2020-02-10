@@ -33,7 +33,6 @@ public slots:
     performSegmentationResponse performSegmentation(cv::Mat, bool = true);
     std::vector<cv::RotatedRect> findBoundingBox1(cv::Mat);
     void List_BoundingBox(std::vector<cv::RotatedRect>);
-    void show_BoundingBox(void);
     cv::Mat show_BoundingBoxOriented(int, std::vector<cv::RotatedRect>, cv::Mat);
     cv::Mat SecondthresholdingTrimmed(cv::Mat ImageCropped);
     cv::Mat SecondthresholdingTrimmedV2(cv::Mat ImageCropped);
@@ -43,8 +42,6 @@ public slots:
     void drawThresholdedImage(cv::Mat);
     void drawThresholdedkey(cv::Mat);
     void onSelectedIndexCrop(int);
-    void watershed(cv::Mat);
-    void watershedV2(cv::Mat);
     void watershedV3(cv::Mat);
     cv::Mat limpiezaBordes(cv::Mat);
 };
